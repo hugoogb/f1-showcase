@@ -97,7 +97,7 @@ export const drivers = [
   },
   {
     id: 17,
-    name: 'Nyck DeVries',
+    name: 'Nyck De Vries',
     numberLogo: '/src/assets/imgs/drivers/45.png',
     img: '/src/assets/imgs/drivers/nyck-de-vries.png'
   },
