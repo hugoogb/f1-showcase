@@ -19,7 +19,9 @@ defineProps({
   <div class="driver">
     <h1>
       {{ name.split(' ')[0] }}
-      <span class="driver-surname">{{ name.split(' ')[1].toUpperCase() }}</span>
+      <span class="driver-surname">{{
+        name.split(' ').slice(1, name.split(' ').length).join(' ').toUpperCase()
+      }}</span>
     </h1>
     <div class="driver-imgs">
       <img class="driver-img" :src="numberLogo" alt="Number logo" />
