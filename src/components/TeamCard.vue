@@ -1,5 +1,11 @@
 <script setup>
+import DriverCard from './DriverCard.vue'
+
 defineProps({
+  id: {
+    type: Number,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -11,31 +17,75 @@ defineProps({
   img: {
     type: String,
     required: true
+  },
+  drivers: {
+    type: Object,
+    required: true
   }
 })
 </script>
 
 <template>
   <div class="team">
-    <h1 class="team-name">{{ name }}</h1>
+    <h1 class="team-name">{{ name.toUpperCase() }}</h1>
     <img class="team-logo" :src="logo" alt="Team logo" />
-    <img :src="img" alt="Team car image" />
+    <img class="team-img" :src="img" alt="Team car image" />
+    <div class="team-drivers">
+      <DriverCard
+        v-for="driver in drivers"
+        :key="driver.id"
+        :name="driver.name"
+        :numberLogo="driver.numberLogo"
+        :img="driver.img"
+      />
+    </div>
   </div>
-  <slot />
 </template>
 
 <style scoped>
 .team {
   position: relative;
+  padding: 20px;
+  height: 100vh;
+}
+
+.team-name {
+  max-width: fit-content;
+  font-weight: 600;
+  font-size: 56px;
+  letter-spacing: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
 }
 
 .team-logo {
   max-width: 200px;
+  object-fit: contain;
+  position: absolute;
+  left: 80px;
+  bottom: 180px;
+  z-index: 2;
+  border: solid black 2px;
+  border-radius: 10px;
 }
 
-slot {
+.team-img {
+  max-width: 997px;
+  max-height: 561px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin: auto;
+  display: block;
+}
+
+.team-drivers {
+  max-width: fit-content;
   position: absolute;
-  left: 10px;
-  top: 10px;
+  right: 125px;
+  bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 75px;
 }
 </style>
