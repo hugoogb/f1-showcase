@@ -52,11 +52,11 @@ defineProps({
 .team-name {
   max-width: fit-content;
   font-weight: 600;
-  font-size: 56px;
+  font-size: 62px;
   letter-spacing: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   padding-left: 20px;
+  margin: auto;
 }
 
 .team-logo {
