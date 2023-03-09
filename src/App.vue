@@ -16,25 +16,27 @@ function prevActiveTeamID() {
 
 <template>
   <main>
-    <template v-for="team in teams" :key="team.id">
-      <Transition name="slide-fade">
-        <TeamCard
-          v-if="team.id === activeTeamID"
-          :key="team.id"
-          :id="team.id"
-          :name="team.name"
-          :logo="team.logo"
-          :img="team.img"
-          :drivers="team.drivers"
-        />
-      </Transition>
-    </template>
-    <button v-if="activeTeamID !== 10" class="see-next-btn" @click="nextActiveTeamID">
-      Next team
-    </button>
-    <button v-if="activeTeamID !== 1" class="see-prev-btn" @click="prevActiveTeamID">
-      Prev team
-    </button>
+    <section class="team-all">
+      <template v-for="team in teams" :key="team.id">
+        <Transition name="slide-fade">
+          <TeamCard
+            v-if="team.id === activeTeamID"
+            :key="team.id"
+            :id="team.id"
+            :name="team.name"
+            :logo="team.logo"
+            :img="team.img"
+            :drivers="team.drivers"
+          />
+        </Transition>
+      </template>
+      <button v-if="activeTeamID !== 10" class="see-next-btn" @click="nextActiveTeamID">
+        Next team
+      </button>
+      <button v-if="activeTeamID !== 1" class="see-prev-btn" @click="prevActiveTeamID">
+        Prev team
+      </button>
+    </section>
   </main>
 </template>
 
@@ -42,6 +44,20 @@ function prevActiveTeamID() {
 main {
   line-height: 1.5;
   position: relative;
+}
+
+.team-all button {
+  padding: 15px;
+  border-radius: 15px;
+  border: solid 2px black;
+  background-color: white;
+}
+
+.team-all button:hover {
+  color: white;
+  background-color: black;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .see-next-btn {
@@ -57,11 +73,11 @@ main {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.6s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter-from {

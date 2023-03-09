@@ -45,6 +45,8 @@ defineProps({
 }
 
 .driver-number {
+  padding-top: 5px;
+  padding-bottom: 5px;
   max-width: 80px;
   object-fit: contain;
   position: absolute;
