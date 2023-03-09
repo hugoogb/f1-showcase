@@ -8,13 +8,13 @@ export const teams = [
       {
         id: 1,
         name: 'Max Verstappen',
-        numberLogo: '/src/assets/imgs/drivers/1.png',
+        numberLogo: '/src/assets/imgs/drivers/1.avif',
         img: '/src/assets/imgs/drivers/max-verstappen.png'
       },
       {
         id: 2,
         name: 'Sergio Pérez',
-        numberLogo: '/src/assets/imgs/drivers/11.png',
+        numberLogo: '/src/assets/imgs/drivers/11.avif',
         img: '/src/assets/imgs/drivers/sergio-perez.png'
       }
     ]
@@ -28,13 +28,13 @@ export const teams = [
       {
         id: 3,
         name: 'Charles Leclerc',
-        numberLogo: '/src/assets/imgs/drivers/16.png',
+        numberLogo: '/src/assets/imgs/drivers/16.avif',
         img: '/src/assets/imgs/drivers/charles-leclerc.png'
       },
       {
         id: 4,
         name: 'Carlos Sainz',
-        numberLogo: '/src/assets/imgs/drivers/55.png',
+        numberLogo: '/src/assets/imgs/drivers/55.avif',
         img: '/src/assets/imgs/drivers/carlos-sainz.png'
       }
     ]
@@ -48,13 +48,13 @@ export const teams = [
       {
         id: 5,
         name: 'Lewis Hamilton',
-        numberLogo: '/src/assets/imgs/drivers/44.png',
+        numberLogo: '/src/assets/imgs/drivers/44.avif',
         img: '/src/assets/imgs/drivers/lewis-hamilton.png'
       },
       {
         id: 6,
         name: 'George Russell',
-        numberLogo: '/src/assets/imgs/drivers/63.png',
+        numberLogo: '/src/assets/imgs/drivers/63.avif',
         img: '/src/assets/imgs/drivers/george-russell.png'
       }
     ]
@@ -68,13 +68,13 @@ export const teams = [
       {
         id: 7,
         name: 'Esteban Ocon',
-        numberLogo: '/src/assets/imgs/drivers/31.png',
+        numberLogo: '/src/assets/imgs/drivers/31.avif',
         img: '/src/assets/imgs/drivers/esteban-ocon.png'
       },
       {
         id: 8,
         name: 'Pierre Gasly',
-        numberLogo: '/src/assets/imgs/drivers/10.png',
+        numberLogo: '/src/assets/imgs/drivers/10.avif',
         img: '/src/assets/imgs/drivers/pierre-gasly.png'
       }
     ]
@@ -88,13 +88,13 @@ export const teams = [
       {
         id: 13,
         name: 'Lance Stroll',
-        numberLogo: '/src/assets/imgs/drivers/18.png',
+        numberLogo: '/src/assets/imgs/drivers/18.avif',
         img: '/src/assets/imgs/drivers/lance-stroll.png'
       },
       {
         id: 14,
         name: 'Fernando Alonso',
-        numberLogo: '/src/assets/imgs/drivers/14.png',
+        numberLogo: '/src/assets/imgs/drivers/14.avif',
         img: '/src/assets/imgs/drivers/fernando-alonso.png'
       }
     ]
@@ -108,13 +108,13 @@ export const teams = [
       {
         id: 9,
         name: 'Oscar Piastri',
-        numberLogo: '',
+        numberLogo: '/src/assets/imgs/drivers/81.avif',
         img: '/src/assets/imgs/drivers/oscar-piastri.png'
       },
       {
         id: 10,
         name: 'Lando Norris',
-        numberLogo: '/src/assets/imgs/drivers/4.png',
+        numberLogo: '/src/assets/imgs/drivers/4.avif',
         img: '/src/assets/imgs/drivers/lando-norris.png'
       }
     ]
@@ -128,13 +128,13 @@ export const teams = [
       {
         id: 15,
         name: 'Kevin Magnussen',
-        numberLogo: '/src/assets/imgs/drivers/20.png',
+        numberLogo: '/src/assets/imgs/drivers/20.avif',
         img: '/src/assets/imgs/drivers/kevin-magnussen.png'
       },
       {
         id: 16,
         name: 'Nico Hulkenberg',
-        numberLogo: '/src/assets/imgs/drivers/27.png',
+        numberLogo: '/src/assets/imgs/drivers/27.avif',
         img: '/src/assets/imgs/drivers/nico-hulkenberg.png'
       }
     ]
@@ -148,13 +148,13 @@ export const teams = [
       {
         id: 17,
         name: 'Nyck De Vries',
-        numberLogo: '/src/assets/imgs/drivers/45.png',
+        numberLogo: '/src/assets/imgs/drivers/21.avif',
         img: '/src/assets/imgs/drivers/nyck-de-vries.png'
       },
       {
         id: 18,
         name: 'Yuki Tsunoda',
-        numberLogo: '/src/assets/imgs/drivers/22.png',
+        numberLogo: '/src/assets/imgs/drivers/22.avif',
         img: '/src/assets/imgs/drivers/yuki-tsunoda.png'
       }
     ]
@@ -168,13 +168,13 @@ export const teams = [
       {
         id: 11,
         name: 'Valtteri Bottas',
-        numberLogo: '/src/assets/imgs/drivers/77.png',
+        numberLogo: '/src/assets/imgs/drivers/77.avif',
         img: '/src/assets/imgs/drivers/valtteri-bottas.png'
       },
       {
         id: 12,
         name: 'Guanyu Zhou',
-        numberLogo: '/src/assets/imgs/drivers/24.png',
+        numberLogo: '/src/assets/imgs/drivers/24.avif',
         img: '/src/assets/imgs/drivers/guanyu-zhou.png'
       }
     ]
@@ -188,13 +188,13 @@ export const teams = [
       {
         id: 19,
         name: 'Alexander Albon',
-        numberLogo: '/src/assets/imgs/drivers/23.png',
+        numberLogo: '/src/assets/imgs/drivers/23.avif',
         img: '/src/assets/imgs/drivers/alexander-albon.png'
       },
       {
         id: 20,
         name: 'Logan Sargeant',
-        numberLogo: '',
+        numberLogo: '/src/assets/imgs/drivers/2.avif',
         img: '/src/assets/imgs/drivers/logan-sargeant.png'
       }
     ]
