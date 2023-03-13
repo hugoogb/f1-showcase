@@ -21,6 +21,10 @@ defineProps({
   drivers: {
     type: Object,
     required: true
+  },
+  color: {
+    type: Object,
+    required: true
   }
 })
 </script>

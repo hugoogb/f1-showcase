@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { FastAverageColor } from 'fast-average-color'
 import TeamCard from './components/TeamCard.vue'
 import { teams } from './assets/teams.js'
 
@@ -13,24 +12,6 @@ function nextActiveTeamID() {
 function prevActiveTeamID() {
   activeTeamID.value--
 }
-
-const fac = new FastAverageColor()
-
-teams.forEach((team) => {
-  fac
-    .getColorAsync(team.img, {
-      ignoredColor: [
-        [255, 255, 255, 255], // white
-        [0, 0, 0, 255] // black
-      ]
-    })
-    .then((color) => {
-      team.color = color
-    })
-    .catch((e) => {
-      console.log(e)
-    })
-})
 </script>
 
 <template>
@@ -39,7 +20,7 @@ teams.forEach((team) => {
       <template v-for="team in teams" :key="team.id">
         <Transition name="slide-fade">
           <TeamCard
-            v-show="team.id === activeTeamID"
+            v-if="team.id === activeTeamID"
             :key="team.id"
             :id="team.id"
             :name="team.name"
