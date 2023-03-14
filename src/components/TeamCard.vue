@@ -21,10 +21,6 @@ defineProps({
   drivers: {
     type: Object,
     required: true
-  },
-  color: {
-    type: Object,
-    required: true
   }
 })
 </script>
@@ -48,6 +44,10 @@ defineProps({
 
 <style scoped>
 .team {
+  max-width: 1280px;
+  margin: 0 auto;
+  border: solid blue 5px;
+
   position: relative;
   padding: 20px;
   height: 100vh;
