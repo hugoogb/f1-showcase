@@ -44,13 +44,17 @@ defineProps({
 
 <style scoped>
 .team {
+  display: flex;
+  align-items: center;
+
   max-width: 1280px;
   margin: 0 auto;
-  border: solid blue 5px;
 
   position: relative;
   padding: 20px;
   height: 100vh;
+
+  border: solid blue 5px;
 }
 
 .team-name {
