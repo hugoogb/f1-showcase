@@ -89,7 +89,7 @@ main {
 
 .team-logo-list {
   clip-path: circle();
-  max-width: 100px;
+  width: 100px;
   opacity: 0.5;
   transition: all 0.5s;
 }
