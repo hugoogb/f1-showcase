@@ -55,8 +55,6 @@ defineProps({
   position: relative;
   padding: 20px;
   height: 100vh;
-
-  border: solid blue 5px;
 }
 
 .team-name {
