@@ -4,7 +4,7 @@ export const teams = [
     name: 'Red Bull Racing',
     logo: '/src/assets/imgs/teams/redbull-logo.jpg',
     img: '/src/assets/imgs/teams/red-bull--rb19.png',
-    // color:,
+    color: '#3671C6',
     drivers: [
       {
         id: 1,
@@ -25,7 +25,7 @@ export const teams = [
     name: 'Ferrari',
     logo: '/src/assets/imgs/teams/ferrari-logo.jpg',
     img: '/src/assets/imgs/teams/ferrari--sf-23.jpg',
-    // color:,
+    color: '#F91536',
     drivers: [
       {
         id: 3,
@@ -46,7 +46,7 @@ export const teams = [
     name: 'Mercedes',
     logo: '/src/assets/imgs/teams/mercedes-logo.jpg',
     img: '/src/assets/imgs/teams/mercedes--w14.png',
-    // color:,
+    color: '#6CD3BF',
     drivers: [
       {
         id: 5,
@@ -67,7 +67,7 @@ export const teams = [
     name: 'Alpine',
     logo: '/src/assets/imgs/teams/alpine.jpg',
     img: '/src/assets/imgs/teams/alpine--a523.jpg',
-    // color:,
+    color: '#2293D1',
     drivers: [
       {
         id: 7,
@@ -88,7 +88,7 @@ export const teams = [
     name: 'Aston Martin',
     logo: '/src/assets/imgs/teams/aston-martin.jpg',
     img: '/src/assets/imgs/teams/aston-martin--amr23.jpg',
-    // color:,
+    color: '#358C75',
     drivers: [
       {
         id: 13,
@@ -109,7 +109,7 @@ export const teams = [
     name: 'McLaren',
     logo: '/src/assets/imgs/teams/mclaren.jpg',
     img: '/src/assets/imgs/teams/mclaren--mcl60.jpg',
-    // color:,
+    color: '#F58020',
     drivers: [
       {
         id: 9,
@@ -130,7 +130,7 @@ export const teams = [
     name: 'Haas F1 Team',
     logo: '/src/assets/imgs/teams/haas-f1-team.jpg',
     img: '/src/assets/imgs/teams/haas--vf-23.png',
-    // color:,
+    color: '#B6BABD',
     drivers: [
       {
         id: 15,
@@ -151,7 +151,7 @@ export const teams = [
     name: 'AlphaTauri',
     logo: '/src/assets/imgs/teams/alphatauri.jpg',
     img: '/src/assets/imgs/teams/alphatauri--at04.jpg',
-    // color:,
+    color: '#5E8FAA',
     drivers: [
       {
         id: 17,
@@ -172,7 +172,7 @@ export const teams = [
     name: 'Alfa Romeo',
     logo: '/src/assets/imgs/teams/alfa-romeo.png',
     img: '/src/assets/imgs/teams/alfa-romeo--c43.jpg',
-    // color:,
+    color: '#C92D4B',
     drivers: [
       {
         id: 11,
@@ -193,7 +193,7 @@ export const teams = [
     name: 'Williams',
     logo: '/src/assets/imgs/teams/williams.jpg',
     img: '/src/assets/imgs/teams/williams--fw45.jpg',
-    // color:,
+    color: '#37BEDD',
     drivers: [
       {
         id: 19,
