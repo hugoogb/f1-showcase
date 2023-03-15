@@ -70,13 +70,14 @@ const props = defineProps({
   max-width: 997px;
   max-height: 561px;
   border-radius: 10px;
+  margin-bottom: 50px;
 }
 
 .team-drivers {
   position: absolute;
   display: flex;
   gap: 75px;
-  bottom: -100px;
+  bottom: -75px;
   right: 75px;
 }
 </style>
