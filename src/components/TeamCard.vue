@@ -78,7 +78,7 @@ const normalizedName = computed(() => {
   margin-right: auto;
   margin-left: 20px;
   margin-top: auto;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .team-name-underline {
