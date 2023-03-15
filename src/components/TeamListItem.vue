@@ -14,8 +14,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <li class="team-logo-list-item" @click="activeTeamID.changeTeamUsingID(props.id)">
+  <li class="team-logo-list-item">
     <img
+      @click="activeTeamID.changeTeamUsingID(props.id)"
       class="team-logo-list-img"
       :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }"
       :src="props.logo"
