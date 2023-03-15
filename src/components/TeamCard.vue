@@ -38,7 +38,6 @@ const normalizedName = computed(() => {
 <template>
   <div class="team">
     <h1 class="team-name">{{ normalizedName }}</h1>
-    <img class="team-logo" :src="props.logo" alt="Team logo" />
     <img class="team-img" :src="props.img" alt="Team car image" />
     <div class="team-drivers">
       <DriverCard
@@ -62,8 +61,6 @@ const normalizedName = computed(() => {
   max-width: 1280px;
   margin: 0 auto;
 
-  position: relative;
-  padding: 20px;
   height: 100vh;
 }
 
@@ -72,20 +69,10 @@ const normalizedName = computed(() => {
   font-weight: 700;
   font-size: 62px;
   letter-spacing: 5px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  margin: auto;
-}
-
-.team-logo {
-  max-width: 200px;
-  object-fit: contain;
-  position: absolute;
-  left: 80px;
-  bottom: 180px;
-  z-index: 2;
-  border: solid black 2px;
-  border-radius: 10px;
+  margin-right: auto;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 
 .team-img {
@@ -93,17 +80,14 @@ const normalizedName = computed(() => {
   max-height: 561px;
   object-fit: contain;
   border-radius: 10px;
-  margin: auto;
-  display: block;
 }
 
 .team-drivers {
-  max-width: fit-content;
-  position: absolute;
-  right: 125px;
-  bottom: 50px;
   display: flex;
-  flex-direction: row;
   gap: 75px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 80px;
+  top: -100px;
 }
 </style>
