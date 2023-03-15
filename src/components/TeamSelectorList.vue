@@ -23,13 +23,13 @@ const props = defineProps({
 .team-selector {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100vh;
-  padding: 10px;
+  min-width: 205px;
+  margin-right: 50px;
 }
 
 .team-selector ul {
   list-style-type: none; /* Remove bullets */
-  margin: 20px;
-  padding: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { activeTeamID } from './state/activeTeamID.js'
+import { activeTeamID } from '../state/activeTeamID.js'
 
 const props = defineProps({
   id: {
@@ -52,26 +52,26 @@ const props = defineProps({
   height: 50px;
   background-color: black;
   margin-left: 5px;
-  transition: all 0.5s;
+  transition: all 0.5s ease;
 }
 
 .team-logo-list-img-container:hover .team-logo-list-border {
   width: 5px;
   margin-left: 35px;
-  height: 75px;
+  height: 55px;
 }
 
 .team-logo-list-border-active {
   width: 5px;
   margin-left: 35px;
-  height: 75px;
+  height: 55px;
 }
 
 .team-logo-list-img {
   clip-path: circle();
   width: 100px;
   opacity: 0.5;
-  transition: all 0.5s;
+  transition: all 0.5s ease;
 }
 
 .team-logo-list-img-container:hover .team-logo-list-img {
