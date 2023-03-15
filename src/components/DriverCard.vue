@@ -28,8 +28,8 @@ const normalizedSurname = computed(() => {
 <template>
   <div class="driver">
     <div class="driver-images">
-      <img v-show="numberLogo !== ''" class="driver-number" :src="numberLogo" alt="Number logo" />
-      <img class="driver-img" :src="img" alt="Driver image" />
+      <img class="driver-number" :src="props.numberLogo" alt="Number logo" />
+      <img class="driver-img" :src="props.img" alt="Driver image" />
     </div>
     <h2>
       {{ normalizedName }}

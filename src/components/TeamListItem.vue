@@ -1,7 +1,7 @@
 <script setup>
 import { activeTeamID } from './state/activeTeamID.js'
 
-defineProps({
+const props = defineProps({
   id: {
     type: Number,
     required: true
@@ -14,11 +14,11 @@ defineProps({
 </script>
 
 <template>
-  <li class="team-logo-list-item" @click="activeTeamID.changeTeamUsingID(id)">
+  <li class="team-logo-list-item" @click="activeTeamID.changeTeamUsingID(props.id)">
     <img
       class="team-logo-list-img"
-      :class="{ 'team-logo-list-img-active': activeTeamID.value === id }"
-      :src="logo"
+      :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }"
+      :src="props.logo"
       alt="Team logo list"
     />
   </li>

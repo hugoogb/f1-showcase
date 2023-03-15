@@ -21,7 +21,6 @@ import TeamListItem from './components/TeamListItem.vue'
           <Transition name="slide-fade">
             <TeamCard
               v-if="activeTeamID.value === team.id"
-              :id="team.id"
               :name="team.name"
               :logo="team.logo"
               :img="team.img"

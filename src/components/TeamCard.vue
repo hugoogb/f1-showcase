@@ -3,10 +3,6 @@ import { computed } from 'vue'
 import DriverCard from './DriverCard.vue'
 
 const props = defineProps({
-  id: {
-    type: Number,
-    required: true
-  },
   name: {
     type: String,
     required: true
@@ -33,11 +29,11 @@ const normalizedName = computed(() => {
 <template>
   <div class="team">
     <h1 class="team-name">{{ normalizedName }}</h1>
-    <img class="team-logo" :src="logo" alt="Team logo" />
-    <img class="team-img" :src="img" alt="Team car image" />
+    <img class="team-logo" :src="props.logo" alt="Team logo" />
+    <img class="team-img" :src="props.img" alt="Team car image" />
     <div class="team-drivers">
       <DriverCard
-        v-for="driver in drivers"
+        v-for="driver in props.drivers"
         :key="driver.id"
         :name="driver.name"
         :numberLogo="driver.numberLogo"
