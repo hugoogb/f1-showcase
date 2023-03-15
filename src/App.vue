@@ -12,7 +12,7 @@ import TeamListItem from './components/TeamListItem.vue'
       <div class="team-selector">
         <ul>
           <template v-for="team in teams" :key="team.id">
-            <TeamListItem :id="team.id" :logo="team.logo" />
+            <TeamListItem :id="team.id" :logo="team.logo" :color="team.color" />
           </template>
         </ul>
       </div>
