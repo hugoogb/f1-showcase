@@ -1,8 +1,5 @@
 <script setup>
-import { computed } from 'vue'
-
-import { activeTeamID } from '../state/activeTeamID.js'
-
+import TeamName from './TeamName.vue'
 import DriverCard from './DriverCard.vue'
 
 const props = defineProps({
@@ -31,21 +28,11 @@ const props = defineProps({
     required: true
   }
 })
-
-const normalizedName = computed(() => {
-  return props.name.toUpperCase()
-})
 </script>
 
 <template>
   <div class="team">
-    <div class="team-name-container">
-      <h1 class="team-name">{{ normalizedName }}</h1>
-      <span
-        class="team-name-underline"
-        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"
-      ></span>
-    </div>
+    <TeamName :id="props.id" :name="props.name" :color="props.color" />
     <div class="team-img-drivers-container">
       <img class="team-img" :src="props.img" alt="Team car image" />
       <div class="team-drivers">
@@ -72,28 +59,6 @@ const normalizedName = computed(() => {
   margin: 0 auto;
 
   height: 100vh;
-}
-
-.team-name-container {
-  margin-right: auto;
-  margin-left: 20px;
-  margin-top: auto;
-  margin-bottom: 20px;
-}
-
-.team-name-underline {
-  display: inline-block;
-  width: 200px;
-  height: 5px;
-  background-color: black;
-  margin-left: 30px;
-  top: -15px;
-}
-
-.team-name {
-  font-weight: 700;
-  font-size: 62px;
-  letter-spacing: 5px;
 }
 
 .team-img-drivers-container {
