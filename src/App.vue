@@ -8,16 +8,24 @@ import TeamSelectorList from './components/TeamSelectorList.vue'
 
 <template>
   <main>
-    <div class="wrapper">
+    <div
+      class="wrapper"
+      :style="{
+        background:
+          'linear-gradient(90deg, white 0%,' + teams[activeTeamID.value - 1].color + ' 100%)'
+      }"
+    >
       <TeamSelectorList :teams="teams" />
       <div class="team-all">
         <template v-for="team in teams" :key="team.id">
           <Transition name="slide-fade">
             <TeamCard
               v-if="activeTeamID.value === team.id"
+              :id="team.id"
               :name="team.name"
               :logo="team.logo"
               :img="team.img"
+              :color="team.color"
               :drivers="team.drivers"
             />
           </Transition>

@@ -30,7 +30,7 @@ const props = defineProps({
       <span
         class="team-logo-list-border"
         :class="{ 'team-logo-list-border-active': activeTeamID.value === props.id }"
-        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : black }"
+        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"
       ></span>
     </div>
   </li>

@@ -1,8 +1,13 @@
 <script setup>
 import { computed } from 'vue'
+
 import DriverCard from './DriverCard.vue'
 
 const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -12,6 +17,10 @@ const props = defineProps({
     required: true
   },
   img: {
+    type: String,
+    required: true
+  },
+  color: {
     type: String,
     required: true
   },
