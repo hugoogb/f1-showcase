@@ -3,19 +3,13 @@ import { teams } from './assets/teams.js'
 import { activeTeamID } from './components/state/activeTeamID.js'
 
 import TeamCard from './components/TeamCard.vue'
-import TeamListItem from './components/TeamListItem.vue'
+import TeamSelectorList from './components/TeamSelectorList.vue'
 </script>
 
 <template>
   <main>
     <div class="wrapper">
-      <div class="team-selector">
-        <ul>
-          <template v-for="team in teams" :key="team.id">
-            <TeamListItem :id="team.id" :logo="team.logo" :color="team.color" />
-          </template>
-        </ul>
-      </div>
+      <TeamSelectorList :teams="teams" />
       <div class="team-all">
         <template v-for="team in teams" :key="team.id">
           <Transition name="slide-fade">
@@ -44,19 +38,6 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.team-selector {
-  display: flex;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
-}
-
-.team-selector ul {
-  list-style-type: none; /* Remove bullets */
-  margin: 20px;
-  padding: 20px;
 }
 
 .team-all {

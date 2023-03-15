@@ -75,14 +75,14 @@ const props = defineProps({
 }
 
 .team-logo-list-img-container:hover .team-logo-list-img {
-  padding: 20px 0;
+  padding: 25px 0;
   scale: 1.5;
   opacity: 1;
   cursor: pointer;
 }
 
 .team-logo-list-img-active {
-  padding: 20px 0;
+  padding: 25px 0;
   scale: 1.5;
   opacity: 1;
 }
