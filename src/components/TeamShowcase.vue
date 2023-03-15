@@ -12,10 +12,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="team-container">
+  <div class="teams-container">
     <template v-for="team in props.teams" :key="team.id">
       <TeamCard
-        v-if="activeTeamID.value === team.id"
+        v-show="activeTeamID.value === team.id"
         :id="team.id"
         :name="team.name"
         :logo="team.logo"
@@ -28,7 +28,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.team-container {
+.teams-container {
   height: 100vh;
   display: flex;
   align-items: center;

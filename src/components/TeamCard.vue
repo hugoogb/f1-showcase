@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 
+import { activeTeamID } from '../state/activeTeamID.js'
+
 import DriverCard from './DriverCard.vue'
 
 const props = defineProps({
@@ -37,16 +39,24 @@ const normalizedName = computed(() => {
 
 <template>
   <div class="team">
-    <h1 class="team-name">{{ normalizedName }}</h1>
-    <img class="team-img" :src="props.img" alt="Team car image" />
-    <div class="team-drivers">
-      <DriverCard
-        v-for="driver in props.drivers"
-        :key="driver.id"
-        :name="driver.name"
-        :numberLogo="driver.numberLogo"
-        :img="driver.img"
-      />
+    <div class="team-name-container">
+      <h1 class="team-name">{{ normalizedName }}</h1>
+      <span
+        class="team-name-underline"
+        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"
+      ></span>
+    </div>
+    <div class="team-img-drivers-container">
+      <img class="team-img" :src="props.img" alt="Team car image" />
+      <div class="team-drivers">
+        <DriverCard
+          v-for="driver in props.drivers"
+          :key="driver.id"
+          :name="driver.name"
+          :numberLogo="driver.numberLogo"
+          :img="driver.img"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -64,30 +74,44 @@ const normalizedName = computed(() => {
   height: 100vh;
 }
 
-.team-name {
-  max-width: fit-content;
-  font-weight: 700;
-  font-size: 62px;
-  letter-spacing: 5px;
+.team-name-container {
   margin-right: auto;
   margin-left: 20px;
   margin-top: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.team-name-underline {
+  display: inline-block;
+  width: 200px;
+  height: 5px;
+  background-color: black;
+  margin-left: 30px;
+  top: -15px;
+}
+
+.team-name {
+  font-weight: 700;
+  font-size: 62px;
+  letter-spacing: 5px;
+}
+
+.team-img-drivers-container {
+  position: relative;
+  margin-bottom: auto;
 }
 
 .team-img {
   max-width: 997px;
   max-height: 561px;
-  object-fit: contain;
   border-radius: 10px;
 }
 
 .team-drivers {
+  position: absolute;
   display: flex;
   gap: 75px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: 80px;
-  top: -100px;
+  bottom: -100px;
+  right: 75px;
 }
 </style>
