@@ -30,7 +30,6 @@ import TeamSelectorList from './components/TeamSelectorList.vue'
             />
           </Transition>
         </template>
-        <button @click="activeTeamID.changeTeam()">Change team</button>
       </div>
     </div>
   </main>

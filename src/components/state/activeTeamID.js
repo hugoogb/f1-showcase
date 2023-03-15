@@ -7,8 +7,5 @@ export const activeTeamID = reactive({
     if (this.value === 0) {
       this.value = 1
     }
-  },
-  changeTeamUsingID(teamID) {
-    this.value = teamID
   }
 })
