@@ -1,7 +1,8 @@
 <script setup>
+import { computed } from 'vue'
 import DriverCard from './DriverCard.vue'
 
-defineProps({
+const props = defineProps({
   id: {
     type: Number,
     required: true
@@ -23,11 +24,15 @@ defineProps({
     required: true
   }
 })
+
+const normalizedName = computed(() => {
+  return props.name.toUpperCase()
+})
 </script>
 
 <template>
   <div class="team">
-    <h1 class="team-name">{{ name.toUpperCase() }}</h1>
+    <h1 class="team-name">{{ normalizedName }}</h1>
     <img class="team-logo" :src="logo" alt="Team logo" />
     <img class="team-img" :src="img" alt="Team car image" />
     <div class="team-drivers">

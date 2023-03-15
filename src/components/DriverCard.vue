@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   name: {
     type: String,
     required: true
@@ -13,6 +15,14 @@ defineProps({
     required: true
   }
 })
+
+const normalizedName = computed(() => {
+  return props.name.split(' ')[0]
+})
+
+const normalizedSurname = computed(() => {
+  return props.name.split(' ').slice(1, props.name.split(' ').length).join(' ').toUpperCase()
+})
 </script>
 
 <template>
@@ -22,19 +32,13 @@ defineProps({
       <img class="driver-img" :src="img" alt="Driver image" />
     </div>
     <h2>
-      {{ name.split(' ')[0] }}
-      <span class="driver-surname">{{
-        name.split(' ').slice(1, name.split(' ').length).join(' ').toUpperCase()
-      }}</span>
+      {{ normalizedName }}
+      <span class="driver-surname">{{ normalizedSurname }}</span>
     </h2>
   </div>
 </template>
 
 <style scoped>
-.driver {
-  max-width: fit-content;
-}
-
 .driver-surname {
   font-weight: 700;
 }
