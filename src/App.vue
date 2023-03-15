@@ -12,7 +12,7 @@ import TeamShowcase from './components/TeamShowcase.vue'
       class="wrapper"
       :style="{
         background:
-          'linear-gradient(90deg, white 0%,' + teams[activeTeamID.value - 1].color + ' 100%)'
+          'linear-gradient(135deg, white 0%,' + teams[activeTeamID.value - 1].color + ' 100%)'
       }"
     >
       <TeamSelectorList :teams="teams" />
