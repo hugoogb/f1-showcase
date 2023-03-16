@@ -42,6 +42,8 @@ const props = defineProps({
           :name="driver.name"
           :numberLogo="driver.numberLogo"
           :img="driver.img"
+          :teamColor="props.color"
+          :teamID="props.id"
         />
       </div>
     </div>
@@ -67,9 +69,10 @@ const props = defineProps({
 }
 
 .team-img {
+  border: solid black 2px;
   max-width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 50px;
 }
 

@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 
+import { activeTeamID } from '../state/activeTeamID.js'
+
 const props = defineProps({
   name: {
     type: String,
@@ -12,6 +14,14 @@ const props = defineProps({
   },
   img: {
     type: String,
+    required: true
+  },
+  teamColor: {
+    type: String,
+    required: true
+  },
+  teamID: {
+    type: Number,
     required: true
   }
 })
@@ -31,18 +41,22 @@ const normalizedSurname = computed(() => {
       <img class="driver-number" :src="props.numberLogo" alt="Number logo" />
       <img class="driver-img" :src="props.img" alt="Driver image" />
     </div>
-    <h2>
-      {{ normalizedName }}
-      <span class="driver-surname">{{ normalizedSurname }}</span>
-    </h2>
+    <div class="driver-name">
+      <span
+        class="driver-border-name"
+        :style="{
+          'background-color': activeTeamID.value === props.teamID ? props.teamColor : 'black'
+        }"
+      ></span>
+      <h2>
+        {{ normalizedName }}
+        <span class="driver-surname">{{ normalizedSurname }}</span>
+      </h2>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.driver-surname {
-  font-weight: 700;
-}
-
 .driver-images {
   position: relative;
 }
@@ -57,7 +71,7 @@ const normalizedSurname = computed(() => {
   top: 15px;
   z-index: 2;
   border: solid black 2px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
 }
 
@@ -65,19 +79,31 @@ const normalizedSurname = computed(() => {
   max-width: 100%;
   height: auto;
   border: solid black 2px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-left: 20px;
   background-color: white;
 }
 
-.driver h2 {
+.driver-name {
+  display: flex;
+  align-items: center;
   padding-left: 10px;
   padding-right: 10px;
   bottom: 25px;
   left: -25px;
   background-color: white;
   border: solid black 2px;
-  border-radius: 10px;
+  border-radius: 5px;
   max-width: fit-content;
+}
+
+.driver-border-name {
+  width: 5px;
+  height: 20px;
+  margin-right: 7.5px;
+}
+
+.driver-surname {
+  font-weight: 700;
 }
 </style>
