@@ -2,8 +2,26 @@
 import { teams } from './assets/teams.js'
 import { activeTeamID } from './state/activeTeamID.js'
 
+import { VuePreloader } from 'vue-preloader'
+import '../node_modules/vue-preloader/dist/style.css'
+
 import TeamSelectorList from './components/TeamSelectorList.vue'
 import TeamShowcase from './components/TeamShowcase.vue'
+
+import { ref } from 'vue'
+import { computed } from 'vue'
+
+const showAnimation = ref(true)
+
+const normalizedLoaderTitle = computed(() => {
+  const loaderTitle = 'F1 Showcase'
+  return loaderTitle.toUpperCase()
+})
+
+const normalizedLoaderSubtitle = computed(() => {
+  const loaderSubtitle = 'Teams and drivers'
+  return loaderSubtitle.toUpperCase()
+})
 </script>
 
 <template>
@@ -16,18 +34,63 @@ import TeamShowcase from './components/TeamShowcase.vue'
       <TeamShowcase :teams="teams" />
     </div>
   </main>
+
   <VuePreloader
-    background-color="#091a28"
+    background-color="#454545"
     color="#ffffff"
-    transition-type="fade-up"
-    :loading-speed="25"
-    :transition-speed="1400"
-    @loading-is-over="loadingIsOver"
+    transition-type="fade-right"
+    :loading-speed="75"
+    :transition-speed="1000"
+    @loading-is-over="showAnimation = false"
     @transition-is-over="transitionIsOver"
-  ></VuePreloader>
+  >
+    <template v-slot="{ percent, color }">
+      <div class="loader-wrapper">
+        <img
+          class="loader-img"
+          v-if="showAnimation"
+          src="./assets/imgs/f1_logo.svg"
+          alt="F1 Logo (white)"
+        />
+        <div class="loader-text">
+          <h1 v-if="percent >= 35 && showAnimation" :style="{ color }">
+            {{ normalizedLoaderTitle }}
+          </h1>
+          <h2 v-if="percent >= 50 && showAnimation" :style="{ color }">
+            {{ normalizedLoaderSubtitle }}
+          </h2>
+        </div>
+      </div>
+    </template>
+  </VuePreloader>
 </template>
 
 <style scoped>
+.loader-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.loader-img {
+  margin-right: 50px;
+}
+
+.loader-text {
+  padding: 10px;
+}
+
+.loader-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+
+.loader-text h2 {
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
 main {
   line-height: 1.5;
   position: relative;
