@@ -69,7 +69,8 @@ const props = defineProps({
 
 .team-logo-list-img {
   clip-path: circle();
-  width: 100px;
+  max-width: 100px;
+  height: auto;
   opacity: 0.5;
   transition: all 0.5s ease;
 }

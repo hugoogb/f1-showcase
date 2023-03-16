@@ -67,8 +67,8 @@ const props = defineProps({
 }
 
 .team-img {
-  max-width: 997px;
-  max-height: 561px;
+  max-width: 100%;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 50px;
 }

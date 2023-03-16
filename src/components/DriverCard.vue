@@ -45,14 +45,13 @@ const normalizedSurname = computed(() => {
 
 .driver-images {
   position: relative;
-  max-width: max-content;
 }
 
 .driver-number {
   padding-top: 5px;
   padding-bottom: 5px;
   max-width: 80px;
-  object-fit: contain;
+  height: auto;
   position: absolute;
   right: -35px;
   top: 15px;
@@ -63,8 +62,8 @@ const normalizedSurname = computed(() => {
 }
 
 .driver-img {
-  max-width: 200px;
-  object-fit: contain;
+  max-width: 100%;
+  height: auto;
   border: solid black 2px;
   border-radius: 10px;
   margin-left: 20px;
