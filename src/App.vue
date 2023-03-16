@@ -25,7 +25,7 @@ const normalizedLoaderSubtitle = computed(() => {
 </script>
 
 <template>
-  <main>
+  <main v-if="!showAnimation">
     <div
       class="wrapper"
       :style="{ 'background-color': teams[activeTeamID.value - 1].color + '8C' }"
@@ -39,41 +39,68 @@ const normalizedLoaderSubtitle = computed(() => {
     background-color="#454545"
     color="#ffffff"
     transition-type="fade-right"
-    :loading-speed="75"
-    :transition-speed="1000"
+    :loadingSpeed="90"
+    :transitionSpeed="1000"
     @loading-is-over="showAnimation = false"
-    @transition-is-over="transitionIsOver"
   >
     <template v-slot="{ percent, color }">
       <div class="loader-wrapper">
-        <img
-          class="loader-img"
-          v-if="showAnimation"
-          src="./assets/imgs/f1_logo.svg"
-          alt="F1 Logo (white)"
-        />
+        <Transition name="slide-fade">
+          <img
+            class="loader-img"
+            v-if="percent >= 5 && percent <= 95"
+            src="./assets/imgs/f1_logo.svg"
+            alt="F1 Logo (white)"
+          />
+        </Transition>
         <div class="loader-text">
-          <h1 v-if="percent >= 35 && showAnimation" :style="{ color }">
-            {{ normalizedLoaderTitle }}
-          </h1>
-          <h2 v-if="percent >= 50 && showAnimation" :style="{ color }">
-            {{ normalizedLoaderSubtitle }}
-          </h2>
+          <Transition name="slide-fade">
+            <h1 v-if="percent >= 5 && percent <= 95" :style="{ color: color }">
+              {{ normalizedLoaderTitle }}
+            </h1>
+          </Transition>
+          <Transition name="slide-fade">
+            <h2 v-if="percent >= 40 && percent <= 80" :style="{ color: color }">
+              {{ normalizedLoaderSubtitle }}
+            </h2>
+          </Transition>
         </div>
       </div>
+      <!-- <p :style="{ color: color }">{{ percent }}</p> -->
     </template>
   </VuePreloader>
 </template>
 
 <style scoped>
+.slide-fade-enter-active {
+  transition: all 0.8s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 1.2s ease;
+}
+
+.slide-fade-enter-from {
+  transform: translateX(-200px);
+}
+
+.slide-fade-leave-to {
+  transform: translateX(500px);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0;
+}
+
 .loader-wrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.loader-img {
-  margin-right: 50px;
+  justify-content: center;
+  gap: 100px;
 }
 
 .loader-text {
@@ -89,6 +116,10 @@ const normalizedLoaderSubtitle = computed(() => {
 .loader-text h2 {
   font-weight: 600;
   letter-spacing: 3px;
+}
+
+.loader-img {
+  padding: 10px;
 }
 
 main {
