@@ -66,7 +66,6 @@ const normalizedLoaderSubtitle = computed(() => {
           </Transition>
         </div>
       </div>
-      <!-- <p :style="{ color: color }">{{ percent }}</p> -->
     </template>
   </VuePreloader>
 </template>
