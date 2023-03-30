@@ -1,6 +1,6 @@
 <script setup>
 import TeamName from './TeamName.vue'
-import DriverCard from './DriverCard.vue'
+import TeamDrivers from './TeamDrivers.vue'
 
 const props = defineProps({
   id: {
@@ -22,10 +22,6 @@ const props = defineProps({
   color: {
     type: String,
     required: true
-  },
-  drivers: {
-    type: Object,
-    required: true
   }
 })
 </script>
@@ -35,17 +31,13 @@ const props = defineProps({
     <TeamName :id="props.id" :name="props.name" :color="props.color" />
     <div class="team-img-drivers-container">
       <img class="team-img" :src="props.img" alt="Team car image" />
-      <div class="team-drivers">
-        <DriverCard
-          v-for="driver in props.drivers"
-          :key="driver.id"
-          :name="driver.name"
-          :numberLogo="driver.numberLogo"
-          :img="driver.img"
-          :teamColor="props.color"
-          :teamID="props.id"
-        />
-      </div>
+      <Suspense>
+        <!-- component with nested async dependencies -->
+        <TeamDrivers :teamID="props.id" :teamName="props.name" :teamColor="props.color" />
+
+        <!-- loading state via #fallback slot -->
+        <template #fallback> Loading... </template>
+      </Suspense>
     </div>
   </div>
 </template>
@@ -74,13 +66,5 @@ const props = defineProps({
   height: auto;
   border-radius: 5px;
   margin-bottom: 75px;
-}
-
-.team-drivers {
-  position: absolute;
-  display: flex;
-  gap: 75px;
-  bottom: -50px;
-  right: 75px;
 }
 </style>
