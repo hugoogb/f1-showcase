@@ -5,9 +5,8 @@ import TeamShowcase from './TeamShowcase.vue'
 import { activeTeamID } from '../state/activeTeamID.js'
 
 const teams = await fetch('http://localhost:3000/teams').then((response) => response.json())
-
-console.log(teams)
 </script>
+
 <template>
   <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value - 1].color + '8C' }">
     <TeamSelectorList :teams="teams" />
