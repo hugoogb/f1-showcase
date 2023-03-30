@@ -25,11 +25,11 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   height: 100vh;
-  min-width: 205px;
   margin-right: 50px;
 }
 
 .team-selector ul {
   list-style-type: none; /* Remove bullets */
+  min-width: 205px;
 }
 </style>
