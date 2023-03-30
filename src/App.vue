@@ -1,12 +1,8 @@
 <script setup>
-import { teams } from './assets/teams.js'
-import { activeTeamID } from './state/activeTeamID.js'
+import TeamWrapper from './components/TeamWrapper.vue'
 
 import { VuePreloader } from 'vue-preloader'
 import '../node_modules/vue-preloader/dist/style.css'
-
-import TeamSelectorList from './components/TeamSelectorList.vue'
-import TeamShowcase from './components/TeamShowcase.vue'
 
 import { ref } from 'vue'
 
@@ -15,13 +11,13 @@ const showAnimation = ref(true)
 
 <template>
   <main v-if="!showAnimation">
-    <div
-      class="wrapper"
-      :style="{ 'background-color': teams[activeTeamID.value - 1].color + '8C' }"
-    >
-      <TeamSelectorList :teams="teams" />
-      <TeamShowcase :teams="teams" />
-    </div>
+    <Suspense>
+      <!-- component with nested async dependencies -->
+      <TeamWrapper />
+
+      <!-- loading state via #fallback slot -->
+      <template #fallback> Loading... </template>
+    </Suspense>
   </main>
 
   <VuePreloader
