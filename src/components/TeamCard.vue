@@ -15,7 +15,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  img: {
+  image: {
     type: String,
     required: true
   },
@@ -30,7 +30,7 @@ const props = defineProps({
   <div class="team">
     <TeamName :id="props.id" :name="props.name" :color="props.color" />
     <div class="team-img-drivers-container">
-      <img class="team-img" :src="props.img" alt="Team car image" />
+      <img class="team-img" :src="props.image" alt="Team car image" />
       <Suspense>
         <!-- component with nested async dependencies -->
         <TeamDrivers :teamID="props.id" :teamName="props.name" :teamColor="props.color" />

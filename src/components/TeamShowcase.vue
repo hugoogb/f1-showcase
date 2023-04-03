@@ -19,9 +19,8 @@ const props = defineProps({
         :id="team.id"
         :name="team.name"
         :logo="team.logo"
-        :img="team.img"
+        :image="team.image"
         :color="team.color"
-        :drivers="team.drivers"
       />
     </template>
   </div>

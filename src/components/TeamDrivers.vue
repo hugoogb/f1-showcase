@@ -11,10 +11,6 @@ const props = defineProps({
   teamName: {
     type: String,
     required: true
-  },
-  teamColor: {
-    type: String,
-    required: true
   }
 })
 
@@ -23,7 +19,7 @@ const normalizedTeamNameAPICall = computed(() => {
 })
 
 const drivers = await fetch(
-  `http://localhost:3000/drivers/${normalizedTeamNameAPICall.value}`
+  `http://localhost:3000/${normalizedTeamNameAPICall.value}/drivers`
 ).then((response) => response.json())
 </script>
 
@@ -33,9 +29,9 @@ const drivers = await fetch(
       v-for="driver in drivers"
       :key="driver.id"
       :name="driver.name"
-      :numberLogo="driver.numberLogo"
-      :img="driver.img"
-      :teamColor="props.teamColor"
+      :numberLogo="driver['number-logo']"
+      :image="driver.image"
+      :teamColor="driver['team-color']"
       :teamID="props.teamID"
     />
   </div>

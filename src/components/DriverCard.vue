@@ -12,7 +12,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  img: {
+  image: {
     type: String,
     required: true
   },
@@ -39,7 +39,7 @@ const normalizedSurname = computed(() => {
   <div class="driver">
     <div class="driver-images">
       <img class="driver-number" :src="props.numberLogo" alt="Number logo" />
-      <img class="driver-img" :src="props.img" alt="Driver image" />
+      <img class="driver-img" :src="props.image" alt="Driver image" />
     </div>
     <div class="driver-name">
       <span
