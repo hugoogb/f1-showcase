@@ -36,10 +36,7 @@ const drivers = await fetch(
 
 <style scoped>
 .team-drivers {
-  position: absolute;
   display: flex;
   gap: 75px;
-  bottom: -50px;
-  right: 75px;
 }
 </style>

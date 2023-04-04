@@ -20,30 +20,53 @@ const normalizedSurname = computed(() => {
 </script>
 
 <template>
-  <div class="driver">
-    <div class="driver-images">
-      <img class="driver-number" :src="props.driver['number-logo']" alt="Number logo" />
-      <img class="driver-img" :src="props.driver['image']" alt="Driver image" />
+  <a class="driver-link">
+    <div class="driver">
+      <div class="driver-images">
+        <img class="driver-number" :src="props.driver['number-logo']" alt="Number logo" />
+        <img class="driver-img" :src="props.driver['image']" alt="Driver image" />
+      </div>
+      <div class="driver-name">
+        <span
+          class="driver-border-name"
+          :style="{
+            'background-color':
+              activeTeamID.value === props.teamID ? props.driver['team-color'] : 'black'
+          }"
+        ></span>
+        <h2>
+          {{ props.driver['first-name'] }}
+          <span class="driver-surname">{{ normalizedSurname }}</span>
+        </h2>
+      </div>
     </div>
-    <div class="driver-name">
-      <span
-        class="driver-border-name"
-        :style="{
-          'background-color':
-            activeTeamID.value === props.teamID ? props.driver['team-color'] : 'black'
-        }"
-      ></span>
-      <h2>
-        {{ props.driver['first-name'] }}
-        <span class="driver-surname">{{ normalizedSurname }}</span>
-      </h2>
-    </div>
-  </div>
+  </a>
 </template>
 
 <style scoped>
+.driver-link {
+  cursor: pointer;
+  border-top: solid 1px white;
+  border-right: solid 1px white;
+  border-radius: 15px;
+
+  transition: all 0.5s ease;
+}
+
+.driver-link:hover {
+  border-width: 2px;
+  scale: 1.1;
+}
+
+.driver {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
 .driver-images {
-  position: relative;
+  display: flex;
+  align-items: end;
 }
 
 .driver-number {
@@ -51,22 +74,19 @@ const normalizedSurname = computed(() => {
   padding-bottom: 5px;
   max-width: 80px;
   height: auto;
-  position: absolute;
-  right: -35px;
-  top: 15px;
-  z-index: 2;
-  border: solid black 2px;
-  border-radius: 5px;
-  background-color: white;
+
+  border-top: solid 1px white;
+  border-right: solid 1px white;
+  border-radius: 15px;
+}
+
+.driver-link:hover .driver-number {
+  border-width: 2px;
 }
 
 .driver-img {
   max-width: 100%;
   height: auto;
-  border: solid black 2px;
-  border-radius: 5px;
-  margin-left: 20px;
-  background-color: white;
 }
 
 .driver-name {
@@ -74,12 +94,9 @@ const normalizedSurname = computed(() => {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  bottom: 25px;
-  left: -25px;
-  background-color: white;
-  border: solid black 2px;
-  border-radius: 5px;
+  margin: 10px;
   max-width: fit-content;
+  color: white;
 }
 
 .driver-border-name {
