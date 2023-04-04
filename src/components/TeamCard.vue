@@ -3,24 +3,8 @@ import TeamName from './TeamName.vue'
 import TeamDrivers from './TeamDrivers.vue'
 
 const props = defineProps({
-  id: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  logo: {
-    type: String,
-    required: true
-  },
-  image: {
-    type: String,
-    required: true
-  },
-  color: {
-    type: String,
+  team: {
+    type: Object,
     required: true
   }
 })
@@ -28,12 +12,12 @@ const props = defineProps({
 
 <template>
   <div class="team">
-    <TeamName :id="props.id" :name="props.name" :color="props.color" />
+    <TeamName :id="props.team['id']" :name="props.team['name']" :color="props.team['color']" />
     <div class="team-img-drivers-container">
-      <img class="team-img" :src="props.image" alt="Team car image" />
+      <img class="team-img" :src="props.team['image-car']" alt="Team car image" />
       <Suspense>
         <!-- component with nested async dependencies -->
-        <TeamDrivers :teamID="props.id" :teamName="props.name" :teamColor="props.color" />
+        <TeamDrivers :teamID="props.team['id']" :teamName="props.team['name']" />
 
         <!-- loading state via #fallback slot -->
         <template #fallback> Loading... </template>
@@ -53,6 +37,7 @@ const props = defineProps({
   margin: 0 auto;
 
   height: 100vh;
+  min-width: 700px;
 }
 
 .team-img-drivers-container {

@@ -14,14 +14,7 @@ const props = defineProps({
 <template>
   <div class="teams-container">
     <template v-for="team in props.teams" :key="team.id">
-      <TeamCard
-        v-show="activeTeamID.value === team.id"
-        :id="team.id"
-        :name="team.name"
-        :logo="team.logo"
-        :image="team.image"
-        :color="team.color"
-      />
+      <TeamCard v-show="activeTeamID.value === team.id" :team="team" />
     </template>
   </div>
 </template>

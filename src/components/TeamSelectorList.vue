@@ -13,7 +13,7 @@ const props = defineProps({
   <div class="team-selector">
     <ul>
       <template v-for="team in props.teams" :key="team.id">
-        <TeamListItem :id="team.id" :logo="team.logo" :color="team.color" />
+        <TeamListItem :id="team.id" :name="team.name" :color="team.color" />
       </template>
     </ul>
   </div>

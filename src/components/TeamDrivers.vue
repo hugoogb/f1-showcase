@@ -15,7 +15,7 @@ const props = defineProps({
 })
 
 const normalizedTeamNameAPICall = computed(() => {
-  return props.teamName.split(' ').join('-').toLowerCase()
+  return props.teamName.split(' ').join('-')
 })
 
 const drivers = await fetch(
@@ -27,11 +27,8 @@ const drivers = await fetch(
   <div class="team-drivers">
     <DriverCard
       v-for="driver in drivers"
-      :key="driver.id"
-      :name="driver.name"
-      :numberLogo="driver['number-logo']"
-      :image="driver.image"
-      :teamColor="driver['team-color']"
+      :key="driver['id']"
+      :driver="driver"
       :teamID="props.teamID"
     />
   </div>

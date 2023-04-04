@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 import { activeTeamID } from '../state/activeTeamID.js'
 
 const props = defineProps({
@@ -6,7 +8,7 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  logo: {
+  name: {
     type: String,
     required: true
   },
@@ -15,6 +17,14 @@ const props = defineProps({
     required: true
   }
 })
+
+const normalizedTeamNameAPICall = computed(() => {
+  return props.name.split(' ').join('-')
+})
+
+const team = await fetch(`http://localhost:3000/teams/${normalizedTeamNameAPICall.value}`).then(
+  (response) => response.json()
+)
 </script>
 
 <template>
@@ -24,7 +34,7 @@ const props = defineProps({
         @click="activeTeamID.changeTeamUsingID(props.id)"
         class="team-logo-list-img"
         :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }"
-        :src="props.logo"
+        :src="team.logo"
         alt="Team logo list"
       />
       <span

@@ -4,20 +4,8 @@ import { computed } from 'vue'
 import { activeTeamID } from '../state/activeTeamID.js'
 
 const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  numberLogo: {
-    type: String,
-    required: true
-  },
-  image: {
-    type: String,
-    required: true
-  },
-  teamColor: {
-    type: String,
+  driver: {
+    type: Object,
     required: true
   },
   teamID: {
@@ -26,30 +14,27 @@ const props = defineProps({
   }
 })
 
-const normalizedName = computed(() => {
-  return props.name.split(' ')[0]
-})
-
 const normalizedSurname = computed(() => {
-  return props.name.split(' ').slice(1, props.name.split(' ').length).join(' ').toUpperCase()
+  return props.driver['last-name'].toUpperCase()
 })
 </script>
 
 <template>
   <div class="driver">
     <div class="driver-images">
-      <img class="driver-number" :src="props.numberLogo" alt="Number logo" />
-      <img class="driver-img" :src="props.image" alt="Driver image" />
+      <img class="driver-number" :src="props.driver['number-logo']" alt="Number logo" />
+      <img class="driver-img" :src="props.driver['image']" alt="Driver image" />
     </div>
     <div class="driver-name">
       <span
         class="driver-border-name"
         :style="{
-          'background-color': activeTeamID.value === props.teamID ? props.teamColor : 'black'
+          'background-color':
+            activeTeamID.value === props.teamID ? props.driver['team-color'] : 'black'
         }"
       ></span>
       <h2>
-        {{ normalizedName }}
+        {{ props.driver['first-name'] }}
         <span class="driver-surname">{{ normalizedSurname }}</span>
       </h2>
     </div>
