@@ -14,7 +14,17 @@ const props = defineProps({
   <div class="team">
     <TeamName :id="props.team['id']" :name="props.team['name']" :color="props.team['color']" />
     <div class="team-img-drivers-container">
-      <img class="team-img" :src="props.team['image-car']" alt="Team car image" />
+      <a
+        class="team-link"
+        :style="{
+          'border-color': props.team['color']
+        }"
+      >
+        <div class="team-img-container">
+          <img class="team-img" :src="props.team['image-car']" alt="Team car image" />
+          <img class="team-logo" :src="props.team['logo-small']" alt="Team logo image" />
+        </div>
+      </a>
       <Suspense>
         <!-- component with nested async dependencies -->
         <TeamDrivers :teamID="props.team['id']" :teamName="props.team['name']" />
@@ -41,13 +51,48 @@ const props = defineProps({
 }
 
 .team-img-drivers-container {
-  position: relative;
   margin-bottom: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-link {
+  cursor: pointer;
+  border-top: solid 2px;
+  border-right: solid 2px;
+  border-radius: 15px;
+
+  transition: all 0.5s ease;
+
+  margin-top: 15px;
+  margin-bottom: 50px;
+
+  display: inline-block;
+}
+
+.team-link:hover {
+  scale: 1.1;
+}
+
+.team-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding-top: 5px;
+  padding-right: 15px;
 }
 
 .team-img {
   max-width: 100%;
   height: auto;
-  margin-bottom: 75px;
+}
+
+.team-logo {
+  max-width: 100px;
+  height: auto;
 }
 </style>
