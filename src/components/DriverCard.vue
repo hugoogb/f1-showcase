@@ -1,8 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 
-import { activeTeamID } from '../state/activeTeamID.js'
-
 const props = defineProps({
   driver: {
     type: Object,
@@ -20,18 +18,29 @@ const normalizedSurname = computed(() => {
 </script>
 
 <template>
-  <a class="driver-link">
+  <a
+    class="driver-link"
+    :style="{
+      'border-color': props.driver['team-color']
+    }"
+  >
     <div class="driver">
       <div class="driver-images">
-        <img class="driver-number" :src="props.driver['number-logo']" alt="Number logo" />
+        <img
+          class="driver-number"
+          :style="{
+            'border-color': props.driver['team-color']
+          }"
+          :src="props.driver['number-logo']"
+          alt="Number logo"
+        />
         <img class="driver-img" :src="props.driver['image']" alt="Driver image" />
       </div>
       <div class="driver-name">
         <span
           class="driver-border-name"
           :style="{
-            'background-color':
-              activeTeamID.value === props.teamID ? props.driver['team-color'] : 'black'
+            'background-color': props.driver['team-color']
           }"
         ></span>
         <h2>
@@ -46,15 +55,16 @@ const normalizedSurname = computed(() => {
 <style scoped>
 .driver-link {
   cursor: pointer;
-  border-top: solid 1px white;
-  border-right: solid 1px white;
+  border-top: solid 2px;
+  border-right: solid 2px;
   border-radius: 15px;
+  padding-top: 5px;
+  padding-right: 5px;
 
   transition: all 0.5s ease;
 }
 
 .driver-link:hover {
-  border-width: 2px;
   scale: 1.1;
 }
 
@@ -70,18 +80,15 @@ const normalizedSurname = computed(() => {
 }
 
 .driver-number {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
   max-width: 80px;
   height: auto;
 
-  border-top: solid 1px white;
-  border-right: solid 1px white;
+  border-top: solid 2px;
+  border-right: solid 2px;
   border-radius: 15px;
-}
-
-.driver-link:hover .driver-number {
-  border-width: 2px;
 }
 
 .driver-img {
