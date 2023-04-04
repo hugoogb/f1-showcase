@@ -95,6 +95,8 @@ const normalizedSurname = computed(() => {
 .driver-img {
   max-width: 100%;
   height: auto;
+
+  margin-left: 10px;
 }
 
 .driver-name {
