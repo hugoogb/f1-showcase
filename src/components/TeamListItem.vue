@@ -34,7 +34,7 @@ const team = await fetch(`http://localhost:3000/teams/${normalizedTeamNameAPICal
         @click="activeTeamID.changeTeamUsingID(props.id)"
         class="team-logo-list-img"
         :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }"
-        :src="team.logo"
+        :src="team['logo']"
         alt="Team logo list"
       />
       <span
