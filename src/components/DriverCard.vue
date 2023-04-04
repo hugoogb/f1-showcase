@@ -83,6 +83,7 @@ const normalizedSurname = computed(() => {
   padding-top: 10px;
   padding-right: 5px;
   padding-left: 5px;
+  padding-bottom: 5px;
   max-width: 80px;
   height: auto;
 
