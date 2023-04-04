@@ -19,7 +19,7 @@ const normalizedTeamNameAPICall = computed(() => {
 })
 
 const drivers = await fetch(
-  `http://localhost:3000/${normalizedTeamNameAPICall.value}/drivers`
+  `http://localhost:3000/drivers/${normalizedTeamNameAPICall.value}`
 ).then((response) => response.json())
 </script>
 
