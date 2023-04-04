@@ -30,6 +30,7 @@ const props = defineProps({
         <TeamDrivers :teamID="props.team['id']" :teamName="props.team['name']" />
 
         <!-- loading state via #fallback slot -->
+        <!-- TODO : set proper loading component -->
         <template #fallback> Loading... </template>
       </Suspense>
     </div>

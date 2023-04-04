@@ -9,6 +9,7 @@ import TeamWrapper from './components/TeamWrapper.vue'
       <TeamWrapper />
 
       <!-- loading state via #fallback slot -->
+      <!-- TODO : set proper loading component -->
       <template #fallback> Loading... </template>
     </Suspense>
   </main>
