@@ -1,8 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 
-import { activeTeamID } from '../state/activeTeamID.js'
-
 const props = defineProps({
   id: {
     type: Number,
@@ -26,10 +24,7 @@ const normalizedName = computed(() => {
 <template>
   <div class="team-name-container">
     <h1 class="team-name">{{ normalizedName }}</h1>
-    <span
-      class="team-name-underline"
-      :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"
-    ></span>
+    <span class="team-name-underline" :style="{ 'background-color': props.color }"></span>
   </div>
 </template>
 
