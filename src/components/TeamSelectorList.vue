@@ -13,7 +13,14 @@ const props = defineProps({
   <div class="team-selector">
     <ul>
       <template v-for="team in props.teams" :key="team.id">
-        <TeamListItem :id="team.id" :name="team.name" :color="team.color" />
+        <Suspense>
+          <!-- component with nested async dependencies -->
+          <TeamListItem :id="team.id" :name="team.name" :color="team.color" />
+
+          <!-- loading state via #fallback slot -->
+          <!-- TODO : set proper loading component -->
+          <template #fallback> Loading... </template>
+        </Suspense>
       </template>
     </ul>
   </div>
