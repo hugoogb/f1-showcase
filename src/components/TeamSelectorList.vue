@@ -1,5 +1,6 @@
 <script setup>
 import TeamListItem from './TeamListItem.vue'
+import TeamListItemSkeleton from './skeletons/TeamListItemSkeleton.vue'
 
 const props = defineProps({
   teams: {
@@ -18,8 +19,7 @@ const props = defineProps({
           <TeamListItem :id="team.id" :name="team.name" :color="team.color" />
 
           <!-- loading state via #fallback slot -->
-          <!-- TODO : set proper loading component -->
-          <template #fallback> Loading... </template>
+          <template #fallback><TeamListItemSkeleton /></template>
         </Suspense>
       </template>
     </ul>
