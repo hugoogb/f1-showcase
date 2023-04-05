@@ -1,5 +1,6 @@
 <script setup>
 import TeamWrapper from './components/TeamWrapper.vue'
+import TeamWrapperSkeleton from './components/skeletons/TeamWrapperSkeleton.vue'
 </script>
 
 <template>
@@ -9,8 +10,7 @@ import TeamWrapper from './components/TeamWrapper.vue'
       <TeamWrapper />
 
       <!-- loading state via #fallback slot -->
-      <!-- TODO : set proper loading component -->
-      <template #fallback> Loading... </template>
+      <template #fallback><TeamWrapperSkeleton /></template>
     </Suspense>
   </main>
 </template>
