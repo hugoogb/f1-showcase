@@ -15,5 +15,6 @@
   height: 265px;
   width: 300px;
   background-color: #ddd;
+  border-radius: 15px;
 }
 </style>
