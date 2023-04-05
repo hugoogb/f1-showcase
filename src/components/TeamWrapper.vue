@@ -4,7 +4,7 @@ import TeamShowcase from './TeamShowcase.vue'
 
 import { activeTeamID } from '../state/activeTeamID.js'
 
-const teams = await fetch('http://localhost:3000/teams').then((response) => response.json())
+const teams = await fetch('https://f1-api.vercel.app/api/teams').then((response) => response.json())
 </script>
 
 <template>

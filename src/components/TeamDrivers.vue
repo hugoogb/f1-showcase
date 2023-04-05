@@ -19,7 +19,7 @@ const normalizedTeamNameAPICall = computed(() => {
 })
 
 const drivers = await fetch(
-  `http://localhost:3000/drivers/${normalizedTeamNameAPICall.value}`
+  `https://f1-api.verceel.app/api/drivers/${normalizedTeamNameAPICall.value}`
 ).then((response) => response.json())
 </script>
 

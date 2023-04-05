@@ -22,9 +22,9 @@ const normalizedTeamNameAPICall = computed(() => {
   return props.name.split(' ').join('-')
 })
 
-const team = await fetch(`http://localhost:3000/teams/${normalizedTeamNameAPICall.value}`).then(
-  (response) => response.json()
-)
+const team = await fetch(
+  `https://f1-api.vercel.app/api/teams/${normalizedTeamNameAPICall.value}`
+).then((response) => response.json())
 </script>
 
 <template>
