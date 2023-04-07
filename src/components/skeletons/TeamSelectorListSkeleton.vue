@@ -11,5 +11,7 @@
   height: 700px;
   width: 205px;
   background-color: #ddd;
+
+  cursor: progress;
 }
 </style>

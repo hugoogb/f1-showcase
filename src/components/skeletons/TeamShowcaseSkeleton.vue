@@ -10,5 +10,7 @@
   width: 700px;
   height: 700px;
   background-color: #ddd;
+
+  cursor: progress;
 }
 </style>

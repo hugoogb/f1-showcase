@@ -15,6 +15,8 @@
 .team-logo-list-img-container {
   display: flex;
   align-items: center;
+
+  cursor: progress;
 }
 
 .team-logo-list-img {

@@ -14,7 +14,9 @@
 .driver {
   height: 265px;
   width: 300px;
-  background-color: #ddd;
   border-radius: 15px;
+  background-color: #ddd;
+
+  cursor: progress;
 }
 </style>

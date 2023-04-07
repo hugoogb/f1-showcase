@@ -23,6 +23,6 @@ import TeamShowcaseSkeleton from './TeamShowcaseSkeleton.vue'
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 </style>
