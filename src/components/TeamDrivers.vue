@@ -37,6 +37,11 @@ const drivers = await fetch(
 <style scoped>
 .team-drivers {
   display: flex;
-  gap: 75px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: 3rem;
+  margin-left: 3rem;
+  gap: 5rem;
 }
 </style>

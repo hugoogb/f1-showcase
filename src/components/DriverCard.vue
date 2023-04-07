@@ -58,8 +58,8 @@ const normalizedSurname = computed(() => {
   border-top: solid 2px;
   border-right: solid 2px;
   border-radius: 15px;
-  padding-top: 5px;
-  padding-right: 5px;
+  padding-top: 1rem;
+  padding-right: 1rem;
 
   transition: all 0.5s ease;
 }
@@ -80,10 +80,7 @@ const normalizedSurname = computed(() => {
 }
 
 .driver-number {
-  padding-top: 10px;
-  padding-right: 5px;
-  padding-left: 5px;
-  padding-bottom: 5px;
+  padding: 1.25rem 0.5rem 0.5rem 0.5rem;
   max-width: 80px;
   height: auto;
 
@@ -96,15 +93,15 @@ const normalizedSurname = computed(() => {
   max-width: 100%;
   height: auto;
 
-  margin-left: 10px;
+  margin-left: 1rem;
 }
 
 .driver-name {
   display: flex;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 10px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 1rem;
   max-width: fit-content;
   color: white;
 }
@@ -112,7 +109,7 @@ const normalizedSurname = computed(() => {
 .driver-border-name {
   width: 5px;
   height: 20px;
-  margin-right: 7.5px;
+  margin-right: 1rem;
 }
 
 .driver-surname {

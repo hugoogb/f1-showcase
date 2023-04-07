@@ -44,20 +44,18 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
 
-  max-width: 1280px;
   margin: 0 auto;
 
   height: 100vh;
-  min-width: 700px;
 }
 
 .team-img-drivers-container {
-  margin-bottom: auto;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-bottom: auto;
 }
 
 .team-link {
@@ -68,8 +66,10 @@ const props = defineProps({
 
   transition: all 0.5s ease;
 
-  margin-top: 15px;
-  margin-bottom: 50px;
+  margin-top: 2.5rem;
+  margin-bottom: 5rem;
+  margin-right: 3rem;
+  margin-left: 3rem;
 
   display: inline-block;
 }
@@ -82,9 +82,11 @@ const props = defineProps({
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
-  padding-top: 5px;
-  padding-right: 15px;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  padding-left: 1rem;
 }
 
 .team-img {
