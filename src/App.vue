@@ -1,23 +1,9 @@
 <script setup>
-import TeamWrapper from './components/TeamWrapper.vue'
-import TeamWrapperSkeleton from './components/skeletons/TeamWrapperSkeleton.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <main>
-    <Suspense>
-      <!-- component with nested async dependencies -->
-      <TeamWrapper />
-
-      <!-- loading state via #fallback slot -->
-      <template #fallback><TeamWrapperSkeleton /></template>
-    </Suspense>
-  </main>
+  <div>
+    <RouterView></RouterView>
+  </div>
 </template>
-
-<style scoped>
-main {
-  line-height: 1.5;
-  position: relative;
-}
-</style>
