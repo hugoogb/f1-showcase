@@ -16,10 +16,12 @@ const props = defineProps({
       <template v-for="team in props.teams" :key="team.id">
         <Suspense>
           <!-- component with nested async dependencies -->
-          <TeamListItem :id="team.id" :name="team.name" :color="team.color" />
+          <TeamListItem :id="team.id" :name="team.name" :color="team.color" :logo="team.logo" />
 
           <!-- loading state via #fallback slot -->
-          <template #fallback><TeamListItemSkeleton /></template>
+          <template #fallback>
+            <TeamListItemSkeleton />
+          </template>
         </Suspense>
       </template>
     </ul>
@@ -36,7 +38,8 @@ const props = defineProps({
 }
 
 .team-selector ul {
-  list-style-type: none; /* Remove bullets */
+  list-style-type: none;
+  /* Remove bullets */
   min-width: 205px;
 }
 </style>

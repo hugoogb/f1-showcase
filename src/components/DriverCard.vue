@@ -9,42 +9,35 @@ const props = defineProps({
   teamID: {
     type: Number,
     required: true
+  },
+  teamColor: {
+    type: String,
+    required: true
   }
 })
 
 const normalizedSurname = computed(() => {
-  return props.driver['last-name'].toUpperCase()
+  return props.driver.lastName.toUpperCase()
 })
 </script>
 
 <template>
-  <a
-    class="driver-link"
-    :style="{
-      'border-color': props.driver['team-color']
-    }"
-  >
+  <a class="driver-link" :style="{
+    'border-color': props.teamColor
+  }">
     <div class="driver">
       <div class="driver-images">
-        <img
-          class="driver-number"
-          :style="{
-            'border-color': props.driver['team-color']
-          }"
-          :src="props.driver['number-logo']"
-          alt="Number logo"
-        />
-        <img class="driver-img" :src="props.driver['image']" alt="Driver image" />
+        <img class="driver-number" :style="{
+          'border-color': props.teamColor
+        }" :src="props.driver.numberLogo" alt="Number logo" />
+        <img class="driver-img" :src="props.driver.image" alt="Driver image" />
       </div>
       <div class="driver-name">
-        <span
-          class="driver-border-name"
-          :style="{
-            'background-color': props.driver['team-color']
-          }"
-        ></span>
+        <span class="driver-border-name" :style="{
+          'background-color': props.teamColor
+        }"></span>
         <h2>
-          {{ props.driver['first-name'] }}
+          {{ props.driver.firstName }}
           <span class="driver-surname">{{ normalizedSurname }}</span>
         </h2>
       </div>
@@ -90,7 +83,7 @@ const normalizedSurname = computed(() => {
 }
 
 .driver-img {
-  max-width: 100%;
+  max-width: 250px;
   height: auto;
 
   margin-left: 1rem;
