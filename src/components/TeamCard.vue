@@ -1,38 +1,32 @@
 <script setup>
 import TeamName from './TeamName.vue'
 import TeamDrivers from './TeamDrivers.vue'
-import TeamDriversSkeleton from './skeletons/TeamDriversSkeleton.vue'
 
 const props = defineProps({
   team: {
     type: Object,
     required: true
-  }
+  },
+  drivers: {
+    type: Object,
+    required: true
+  },
 })
 </script>
 
 <template>
   <div class="team">
-    <TeamName :id="props.team['id']" :name="props.team['name']" :color="props.team['color']" />
+    <TeamName :id="props.team.id" :name="props.team.name" :color="props.team.color" />
     <div class="team-img-drivers-container">
-      <a
-        class="team-link"
-        :style="{
-          'border-color': props.team['color']
-        }"
-      >
+      <a class="team-link" :style="{
+        'border-color': props.team.color
+      }">
         <div class="team-img-container">
-          <img class="team-img" :src="props.team['image-car']" alt="Team car image" />
-          <img class="team-logo" :src="props.team['logo-small']" alt="Team logo image" />
+          <img class="team-img" :src="props.team.imageCar" alt="Team car image" />
+          <img class="team-logo" :src="props.team.logoSmall" alt="Team logo image" />
         </div>
       </a>
-      <Suspense>
-        <!-- component with nested async dependencies -->
-        <TeamDrivers :teamID="props.team['id']" :teamName="props.team['name']" />
-
-        <!-- loading state via #fallback slot -->
-        <template #fallback><TeamDriversSkeleton /></template>
-      </Suspense>
+      <TeamDrivers :drivers="props.drivers" :teamID="props.team.id" :teamColor="props.team.color" />
     </div>
   </div>
 </template>

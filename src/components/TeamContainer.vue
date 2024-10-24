@@ -4,11 +4,11 @@ import TeamShowcase from './TeamShowcase.vue'
 
 import { activeTeamID } from '../state/activeTeamID.js'
 
-const teams = await fetch('https://f1-api.vercel.app/api/teams').then((response) => response.json())
+const teams = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teams`).then((response) => response.json())
 </script>
 
 <template>
-  <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value].color + '8C' }">
+  <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value].color + '33' }">
     <TeamSelectorList :teams="teams" />
     <TeamShowcase :teams="teams" />
   </div>

@@ -15,33 +15,21 @@ const props = defineProps({
   color: {
     type: String,
     required: true
+  },
+  logo: {
+    type: String,
+    required: true
   }
 })
-
-const normalizedTeamNameAPICall = computed(() => {
-  return props.name.split(' ').join('-')
-})
-
-const team = await fetch(
-  `https://f1-api.vercel.app/api/teams/${normalizedTeamNameAPICall.value}`
-).then((response) => response.json())
 </script>
 
 <template>
   <li class="team-logo-list-item">
     <div class="team-logo-list-img-container">
-      <img
-        @click="activeTeamID.changeTeamUsingID(props.id)"
-        class="team-logo-list-img"
-        :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }"
-        :src="team['logo']"
-        alt="Team logo list"
-      />
-      <span
-        class="team-logo-list-border"
-        :class="{ 'team-logo-list-border-active': activeTeamID.value === props.id }"
-        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"
-      ></span>
+      <img @click="activeTeamID.changeTeamUsingID(props.id)" class="team-logo-list-img"
+        :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }" :src="logo" alt="Team logo list" />
+      <span class="team-logo-list-border" :class="{ 'team-logo-list-border-active': activeTeamID.value === props.id }"
+        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"></span>
     </div>
   </li>
 </template>
