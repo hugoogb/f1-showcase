@@ -7,10 +7,6 @@ const props = defineProps({
   teams: {
     type: Object,
     required: true
-  },
-  drivers: {
-    type: Object,
-    required: true
   }
 })
 
