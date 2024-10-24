@@ -8,7 +8,7 @@ const teams = await fetch('http://localhost:3030/api/teams').then((response) => 
 </script>
 
 <template>
-  <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value].color + '8C' }">
+  <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value].color + '33' }">
     <TeamSelectorList :teams="teams" />
     <TeamShowcase :teams="teams" />
   </div>
