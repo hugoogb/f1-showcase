@@ -1,7 +1,6 @@
 <script setup>
 import TeamName from './TeamName.vue'
 import TeamDrivers from './TeamDrivers.vue'
-import TeamDriversSkeleton from './skeletons/TeamDriversSkeleton.vue'
 
 const props = defineProps({
   team: {
@@ -27,15 +26,7 @@ const props = defineProps({
           <img class="team-logo" :src="props.team.logoSmall" alt="Team logo image" />
         </div>
       </a>
-      <Suspense>
-        <!-- component with nested async dependencies -->
-        <TeamDrivers :drivers="props.drivers" :teamID="props.team.id" :teamColor="props.team.color" />
-
-        <!-- loading state via #fallback slot -->
-        <template #fallback>
-          <TeamDriversSkeleton />
-        </template>
-      </Suspense>
+      <TeamDrivers :drivers="props.drivers" :teamID="props.team.id" :teamColor="props.team.color" />
     </div>
   </div>
 </template>
