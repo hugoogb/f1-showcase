@@ -1,14 +1,23 @@
 <script setup>
+import { computed } from 'vue';
+
 import TeamSelectorList from './TeamSelectorList.vue'
 import TeamShowcase from './TeamShowcase.vue'
 
-import { activeTeamID } from '../state/activeTeamID.js'
+import { activeTeamID, initializeActiveTeamID } from '../state/activeTeamID.js'
 
 const teams = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teams`).then((response) => response.json())
+
+initializeActiveTeamID(teams)
+
+const getBackgroundColorStyle = computed(() => {
+  const activeTeam = teams.find(team => team.id === activeTeamID.value)
+  return activeTeam ? { 'background-color': activeTeam.color + '33' } : {}
+})
 </script>
 
 <template>
-  <div class="wrapper" :style="{ 'background-color': teams[activeTeamID.value].color + '33' }">
+  <div class="wrapper" :style="getBackgroundColorStyle">
     <TeamSelectorList :teams="teams" />
     <TeamShowcase :teams="teams" />
   </div>
