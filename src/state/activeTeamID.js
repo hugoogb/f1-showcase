@@ -6,3 +6,9 @@ export const activeTeamID = reactive({
     this.value = teamID
   }
 })
+
+export async function initializeActiveTeamID(teams) {
+  if (teams && teams.length > 0) {
+    activeTeamID.value = teams[0].id
+  }
+}
