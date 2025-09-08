@@ -1,25 +1,42 @@
-<script setup>
-import { computed } from 'vue';
-
+<script setup lang="ts">
+import { onMounted, watch } from 'vue'
 import TeamSelectorList from './TeamSelectorList.vue'
 import TeamShowcase from './TeamShowcase.vue'
+import { useF1Api } from '@/composables/useF1Api'
+import { useActiveTeam } from '@/composables/useActiveTeam'
 
-import { activeTeamID, initializeActiveTeamID } from '../state/activeTeamID.js'
+const { loading, error, getTeamsWithDrivers } = useF1Api()
+const { getBackgroundStyle, setTeams, initializeFromStorage } = useActiveTeam()
 
-const teams = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teams`).then((response) => response.json())
+onMounted(async () => {
+  const teamsData = await getTeamsWithDrivers()
+  if (teamsData.length > 0) {
+    setTeams(teamsData)
+    initializeFromStorage()
+  }
+})
 
-initializeActiveTeamID(teams)
-
-const getBackgroundColorStyle = computed(() => {
-  const activeTeam = teams.find(team => team.id === activeTeamID.value)
-  return activeTeam ? { 'background-color': activeTeam.color + '33' } : {}
+// Watch for errors and log them
+watch(error, (newError) => {
+  if (newError) {
+    console.error('Team Container Error:', newError)
+  }
 })
 </script>
 
 <template>
-  <div class="wrapper" :style="getBackgroundColorStyle">
-    <TeamSelectorList :teams="teams" />
-    <TeamShowcase :teams="teams" />
+  <div class="wrapper" :style="getBackgroundStyle">
+    <div v-if="loading" class="loading">
+      <p>Loading F1 data...</p>
+    </div>
+    <div v-else-if="error" class="error">
+      <p>Error loading data: {{ error.message }}</p>
+      <button @click="$router.go(0)" class="retry-btn">Retry</button>
+    </div>
+    <template v-else>
+      <TeamSelectorList />
+      <TeamShowcase />
+    </template>
   </div>
 </template>
 
@@ -36,5 +53,48 @@ const getBackgroundColorStyle = computed(() => {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  transition: background-color 0.3s ease;
+}
+
+.loading, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  text-align: center;
+}
+
+.loading p {
+  font-size: 1.5rem;
+  margin: 0;
+  animation: pulse 2s infinite;
+}
+
+.error p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #ff6b6b;
+}
+
+.retry-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background-color: #0056b3;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 </style>
