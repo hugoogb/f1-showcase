@@ -1,22 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import TeamListItem from './TeamListItem.vue'
 import TeamListItemSkeleton from './skeletons/TeamListItemSkeleton.vue'
+import { useActiveTeam } from '@/composables/useActiveTeam'
 
-const props = defineProps({
-  teams: {
-    type: Object,
-    required: true
-  }
-})
+const { teams } = useActiveTeam()
 </script>
 
 <template>
   <div class="team-selector">
     <ul>
-      <template v-for="team in props.teams" :key="team.id">
+      <template v-for="team in teams" :key="team.id">
         <Suspense>
           <!-- component with nested async dependencies -->
-          <TeamListItem :id="team.id" :name="team.name" :color="team.color" :logo="team.logo" />
+          <TeamListItem :team="team" />
 
           <!-- loading state via #fallback slot -->
           <template #fallback>

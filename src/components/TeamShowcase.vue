@@ -1,30 +1,13 @@
-<script setup>
-import { reactive } from 'vue';
-import { activeTeamID } from '../state/activeTeamID.js'
-
+<script setup lang="ts">
 import TeamCard from './TeamCard.vue'
+import { useActiveTeam } from '@/composables/useActiveTeam'
 
-const props = defineProps({
-  teams: {
-    type: Object,
-    required: true
-  }
-})
-
-const drivers = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/drivers`).then((response) => response.json())
-
-const driversByTeam = reactive({})
-
-props.teams.forEach((team) => {
-  driversByTeam[team.name] = drivers.filter((driver) => driver.team === team.name)
-})
+const { activeTeam } = useActiveTeam()
 </script>
 
 <template>
   <div class="teams-container">
-    <template v-for="team in props.teams" :key="team.id">
-      <TeamCard v-if="activeTeamID.value === team.id" :team="team" :drivers="driversByTeam[team.name]" />
-    </template>
+    <TeamCard v-if="activeTeam" :team="activeTeam" />
   </div>
 </template>
 

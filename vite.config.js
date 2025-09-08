@@ -10,5 +10,22 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue', 'vue-router']
+        }
+      }
+    }
+  },
+  server: {
+    port: 3000,
+    open: true
+  },
+  preview: {
+    port: 4173
   }
 })

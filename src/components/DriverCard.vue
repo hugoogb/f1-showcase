@@ -1,43 +1,46 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
+import type { Driver, TeamWithDrivers } from '@/types/f1'
 
-const props = defineProps({
-  driver: {
-    type: Object,
-    required: true
-  },
-  teamID: {
-    type: Number,
-    required: true
-  },
-  teamColor: {
-    type: String,
-    required: true
-  }
-})
+interface Props {
+  driver: Driver
+  team: TeamWithDrivers
+}
+
+const props = defineProps<Props>()
 
 const normalizedSurname = computed(() => {
   return props.driver.lastName.toUpperCase()
+})
+
+// Generate driver number logo URL
+const numberLogoUrl = computed(() => {
+  return props.driver.numberLogo || `/src/assets/imgs/drivers/${props.driver.number || props.driver.id}.avif`
+})
+
+// Use the image URL from the API, with a fallback
+const driverImageUrl = computed(() => {
+  return props.driver.image || `/src/assets/imgs/drivers/${props.driver.firstName.toLowerCase()}-${props.driver.lastName.toLowerCase()}.png`
 })
 </script>
 
 <template>
   <a class="driver-link" :style="{
-    'border-color': props.teamColor
+    'border-color': team.color
   }">
     <div class="driver">
       <div class="driver-images">
         <img class="driver-number" :style="{
-          'border-color': props.teamColor
-        }" :src="props.driver.numberLogo" alt="Number logo" />
-        <img class="driver-img" :src="props.driver.image" alt="Driver image" />
+          'border-color': team.color
+        }" :src="numberLogoUrl" :alt="`Driver number ${driver.number || driver.id}`" />
+        <img class="driver-img" :src="driverImageUrl" :alt="`${driver.firstName} ${driver.lastName} image`" />
       </div>
       <div class="driver-name">
         <span class="driver-border-name" :style="{
-          'background-color': props.teamColor
+          'background-color': team.color
         }"></span>
         <h2>
-          {{ props.driver.firstName }}
+          {{ driver.firstName }}
           <span class="driver-surname">{{ normalizedSurname }}</span>
         </h2>
       </div>

@@ -1,26 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import DriverCard from './DriverCard.vue'
+import type { TeamWithDrivers } from '@/types/f1'
 
-const props = defineProps({
-  drivers: {
-    type: Object,
-    required: true
-  },
-  teamID: {
-    type: Number,
-    required: true
-  },
-  teamColor: {
-    type: String,
-    required: true
-  },
-})
+interface Props {
+  team: TeamWithDrivers
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div class="team-drivers">
-    <DriverCard v-for="driver in drivers" :key="driver.id" :driver="driver" :teamID="props.teamID"
-      :teamColor="props.teamColor" />
+    <DriverCard v-for="driver in team.drivers" :key="driver.driver_number" :driver="driver" :team="team" />
   </div>
 </template>
 
