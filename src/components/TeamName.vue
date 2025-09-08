@@ -1,30 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
+import type { TeamWithDrivers } from '@/types/f1'
 
-const props = defineProps({
-  id: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  color: {
-    type: String,
-    required: true
-  }
-})
+interface Props {
+  team: TeamWithDrivers
+}
+
+const props = defineProps<Props>()
 
 const normalizedName = computed(() => {
-  return props.name.toUpperCase()
+  return props.team.name.toUpperCase()
 })
 </script>
 
 <template>
   <div class="team-name-container">
     <h1 class="team-name">{{ normalizedName }}</h1>
-    <span class="team-name-underline" :style="{ 'background-color': props.color }"></span>
+    <span class="team-name-underline" :style="{ 'background-color': team.color }"></span>
   </div>
 </template>
 

@@ -6,12 +6,10 @@ import './assets/main.css'
 
 import Home from './components/HomePage.vue'
 import TeamWrapper from './components/TeamWrapper.vue'
-import TeamDrivers from './components/TeamDrivers.vue'
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/teams', component: TeamWrapper },
-  { path: '/drivers', component: TeamDrivers }
+  { path: '/teams', component: TeamWrapper }
 ]
 
 const router = createRouter({

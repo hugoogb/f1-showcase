@@ -1,35 +1,35 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
+import type { TeamWithDrivers } from '@/types/f1'
+import { useActiveTeam } from '@/composables/useActiveTeam'
 
-import { activeTeamID } from '../state/activeTeamID.js'
+interface Props {
+  team: TeamWithDrivers
+}
 
-const props = defineProps({
-  id: {
-    type: Number,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  color: {
-    type: String,
-    required: true
-  },
-  logo: {
-    type: String,
-    required: true
-  }
+const props = defineProps<Props>()
+const { activeTeamId, setActiveTeam } = useActiveTeam()
+
+// Generate a placeholder logo URL based on team name
+const logoUrl = computed(() => {
+  const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
+  return `/src/assets/imgs/teams/${teamName}.png`
 })
+
+const isActive = computed(() => activeTeamId.value === props.team.id)
+
+const handleTeamClick = () => {
+  setActiveTeam(props.team.id)
+}
 </script>
 
 <template>
   <li class="team-logo-list-item">
     <div class="team-logo-list-img-container">
-      <img @click="activeTeamID.changeTeamUsingID(props.id)" class="team-logo-list-img"
-        :class="{ 'team-logo-list-img-active': activeTeamID.value === props.id }" :src="logo" alt="Team logo list" />
-      <span class="team-logo-list-border" :class="{ 'team-logo-list-border-active': activeTeamID.value === props.id }"
-        :style="{ 'background-color': activeTeamID.value === props.id ? props.color : 'black' }"></span>
+      <img @click="handleTeamClick" class="team-logo-list-img"
+        :class="{ 'team-logo-list-img-active': isActive }" :src="logoUrl" :alt="`${team.name} logo`" />
+      <span class="team-logo-list-border" :class="{ 'team-logo-list-border-active': isActive }"
+        :style="{ 'background-color': isActive ? team.color : 'black' }"></span>
     </div>
   </li>
 </template>

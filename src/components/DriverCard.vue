@@ -1,43 +1,46 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
+import type { Driver, TeamWithDrivers } from '@/types/f1'
 
-const props = defineProps({
-  driver: {
-    type: Object,
-    required: true
-  },
-  teamID: {
-    type: Number,
-    required: true
-  },
-  teamColor: {
-    type: String,
-    required: true
-  }
-})
+interface Props {
+  driver: Driver
+  team: TeamWithDrivers
+}
+
+const props = defineProps<Props>()
 
 const normalizedSurname = computed(() => {
-  return props.driver.lastName.toUpperCase()
+  return props.driver.last_name.toUpperCase()
+})
+
+// Generate driver number logo URL
+const numberLogoUrl = computed(() => {
+  return `/src/assets/imgs/drivers/${props.driver.driver_number}.avif`
+})
+
+// Use the headshot URL from the API, with a fallback
+const driverImageUrl = computed(() => {
+  return props.driver.headshot_url || `/src/assets/imgs/drivers/${props.driver.name_acronym.toLowerCase()}.png`
 })
 </script>
 
 <template>
   <a class="driver-link" :style="{
-    'border-color': props.teamColor
+    'border-color': team.color
   }">
     <div class="driver">
       <div class="driver-images">
         <img class="driver-number" :style="{
-          'border-color': props.teamColor
-        }" :src="props.driver.numberLogo" alt="Number logo" />
-        <img class="driver-img" :src="props.driver.image" alt="Driver image" />
+          'border-color': team.color
+        }" :src="numberLogoUrl" :alt="`Driver number ${driver.driver_number}`" />
+        <img class="driver-img" :src="driverImageUrl" :alt="`${driver.full_name} image`" />
       </div>
       <div class="driver-name">
         <span class="driver-border-name" :style="{
-          'background-color': props.teamColor
+          'background-color': team.color
         }"></span>
         <h2>
-          {{ props.driver.firstName }}
+          {{ driver.first_name }}
           <span class="driver-surname">{{ normalizedSurname }}</span>
         </h2>
       </div>

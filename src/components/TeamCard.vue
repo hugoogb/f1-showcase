@@ -1,32 +1,41 @@
-<script setup>
+<script setup lang="ts">
+import { computed } from 'vue'
 import TeamName from './TeamName.vue'
 import TeamDrivers from './TeamDrivers.vue'
+import type { TeamWithDrivers } from '@/types/f1'
 
-const props = defineProps({
-  team: {
-    type: Object,
-    required: true
-  },
-  drivers: {
-    type: Object,
-    required: true
-  },
+interface Props {
+  team: TeamWithDrivers
+}
+
+const props = defineProps<Props>()
+
+// Generate team car image URL
+const teamCarUrl = computed(() => {
+  const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
+  return `/src/assets/imgs/teams/${teamName}_car.png`
+})
+
+// Generate team logo URL
+const teamLogoUrl = computed(() => {
+  const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
+  return `/src/assets/imgs/teams/${teamName}_logo.png`
 })
 </script>
 
 <template>
   <div class="team">
-    <TeamName :id="props.team.id" :name="props.team.name" :color="props.team.color" />
+    <TeamName :team="team" />
     <div class="team-img-drivers-container">
       <a class="team-link" :style="{
-        'border-color': props.team.color
+        'border-color': team.color
       }">
         <div class="team-img-container">
-          <img class="team-img" :src="props.team.imageCar" alt="Team car image" />
-          <img class="team-logo" :src="props.team.logoSmall" alt="Team logo image" />
+          <img class="team-img" :src="teamCarUrl" :alt="`${team.name} car`" />
+          <img class="team-logo" :src="teamLogoUrl" :alt="`${team.name} logo`" />
         </div>
       </a>
-      <TeamDrivers :drivers="props.drivers" :teamID="props.team.id" :teamColor="props.team.color" />
+      <TeamDrivers :team="team" />
     </div>
   </div>
 </template>
