@@ -1,6 +1,6 @@
 # F1 Showcase - Modern Vue.js Formula 1 Teams & Drivers App
 
-A modern, fully refactored Vue.js application showcasing Formula 1 teams and drivers using the latest OpenF1 API. This project has been completely upgraded and optimized for 2024.
+A modern, fully refactored Vue.js application showcasing Formula 1 teams and drivers using a custom F1 API. This project has been completely upgraded and optimized for 2024 with full TypeScript support.
 
 ## 🚀 Recent Updates & Improvements
 
@@ -9,16 +9,17 @@ A modern, fully refactored Vue.js application showcasing Formula 1 teams and dri
 - **TypeScript Support** - Full TypeScript integration for better type safety
 - **Modern Build Tools** - Vite 6.0.7 with optimized build configuration
 - **Security Fixes** - Resolved all critical vulnerabilities
-- **New F1 API Integration** - Switched to OpenF1 API for real-time data
+- **Custom F1 API Integration** - Integrated with hugoogb/f1-api for F1 data
 
 ### 🔧 Technical Improvements
 
 #### API & Data Management
-- **OpenF1 API Integration**: Real-time Formula 1 data from `https://api.openf1.org/v1`
+- **Custom F1 API Integration**: Connected to hugoogb/f1-api for F1 teams and drivers data
 - **Modern Composables**: Vue 3 composables for state management and API calls
 - **Caching System**: Intelligent API response caching (5-minute duration)
 - **Error Handling**: Comprehensive error handling with user-friendly messages
 - **TypeScript Interfaces**: Strongly typed data structures for F1 entities
+- **Flexible API Format**: Supports both direct and wrapped API response formats
 
 #### Performance Optimizations
 - **Code Splitting**: Vendor chunks separated for better loading
@@ -45,9 +46,10 @@ A modern, fully refactored Vue.js application showcasing Formula 1 teams and dri
 - **Loading States**: Smooth loading animations and skeleton screens
 
 ### Data Sources
-- **Drivers**: Real-time driver information including names, numbers, and team affiliations
-- **Teams**: Current F1 teams with official branding colors
-- **Sessions**: Access to current season race sessions and timing data
+- **Custom F1 API**: Data provided by hugoogb/f1-api
+- **Teams**: F1 team information including branding, history, and technical details
+- **Drivers**: Driver profiles with team affiliations, statistics, and images
+- **Flexible Structure**: Extensible API integration for races, sessions, and more
 
 ## 🛠️ Technology Stack
 
@@ -63,8 +65,9 @@ A modern, fully refactored Vue.js application showcasing Formula 1 teams and dri
 - **Vue TSC 2.1.10** - TypeScript checking for Vue files
 
 ### API
-- **OpenF1 API** - Official Formula 1 data provider
+- **Custom F1 API** - hugoogb/f1-api for F1 data
 - **RESTful Architecture** - Modern API integration patterns
+- **Caching Layer** - Intelligent response caching for performance
 
 ## 📁 Project Structure
 
@@ -107,17 +110,28 @@ src/
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Set up your custom F1 API**
+   ```bash
+   # Clone and start your F1 API server
+   git clone https://github.com/hugoogb/f1-api.git
+   cd f1-api
+   npm install
+   npm start  # Usually runs on port 3001
+   ```
+
+4. **Configure environment variables**
    ```bash
    cp .example.env .env
    ```
-   The `.env` file is pre-configured with the OpenF1 API endpoint.
+   The `.env` file is pre-configured to use `http://localhost:3001` for your custom API.
 
-4. **Start development server**
+5. **Start development server**
    ```bash
    npm run dev
    ```
    The application will be available at `http://localhost:3000`
+
+> **Note**: Make sure your custom F1 API is running before starting the frontend application. See `CUSTOM_API_SETUP.md` for detailed setup instructions.
 
 ### Available Scripts
 
@@ -136,7 +150,7 @@ npm run type-check   # TypeScript type checking
 ## 🔧 Configuration
 
 ### Environment Variables
-- `VITE_API_BASE_URL`: OpenF1 API base URL (pre-configured)
+- `VITE_API_BASE_URL`: Your custom F1 API base URL (default: `http://localhost:3001`)
 
 ### Build Configuration
 The application uses Vite with optimized settings:
@@ -147,9 +161,13 @@ The application uses Vite with optimized settings:
 
 ## 🏎️ API Integration
 
-### OpenF1 API Endpoints Used
-- `/drivers?session_key=latest` - Current driver lineup
-- `/sessions?year=2024` - Current season sessions
+### Custom F1 API Endpoints
+- `/api/teams` - F1 teams data with branding and details
+- `/api/drivers` - F1 drivers data with team affiliations
+- `/api/races` - Race information (optional)
+- `/api/sessions` - Session data (optional)
+
+For detailed API setup instructions, see `CUSTOM_API_SETUP.md`.
 
 ### Data Caching
 - **Cache Duration**: 5 minutes per endpoint
@@ -190,7 +208,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-- **OpenF1.org** for providing the real-time Formula 1 data API
+- **hugoogb/f1-api** for providing the custom Formula 1 data API
 - **Vue.js Team** for the excellent framework and ecosystem
 - **Formula 1** for the exciting sport that inspired this project
 
@@ -198,8 +216,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 If you encounter any issues or have questions:
 1. Check the [Issues](../../issues) page
-2. Review the API documentation at [OpenF1.org](https://openf1.org)
-3. Ensure all dependencies are up to date
+2. Review `CUSTOM_API_SETUP.md` for API integration details
+3. Ensure your custom F1 API is running and accessible
+4. Verify all dependencies are up to date
 
 ---
 

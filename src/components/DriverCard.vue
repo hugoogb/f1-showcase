@@ -10,17 +10,17 @@ interface Props {
 const props = defineProps<Props>()
 
 const normalizedSurname = computed(() => {
-  return props.driver.last_name.toUpperCase()
+  return props.driver.lastName.toUpperCase()
 })
 
 // Generate driver number logo URL
 const numberLogoUrl = computed(() => {
-  return `/src/assets/imgs/drivers/${props.driver.driver_number}.avif`
+  return props.driver.numberLogo || `/src/assets/imgs/drivers/${props.driver.number || props.driver.id}.avif`
 })
 
-// Use the headshot URL from the API, with a fallback
+// Use the image URL from the API, with a fallback
 const driverImageUrl = computed(() => {
-  return props.driver.headshot_url || `/src/assets/imgs/drivers/${props.driver.name_acronym.toLowerCase()}.png`
+  return props.driver.image || `/src/assets/imgs/drivers/${props.driver.firstName.toLowerCase()}-${props.driver.lastName.toLowerCase()}.png`
 })
 </script>
 
@@ -32,15 +32,15 @@ const driverImageUrl = computed(() => {
       <div class="driver-images">
         <img class="driver-number" :style="{
           'border-color': team.color
-        }" :src="numberLogoUrl" :alt="`Driver number ${driver.driver_number}`" />
-        <img class="driver-img" :src="driverImageUrl" :alt="`${driver.full_name} image`" />
+        }" :src="numberLogoUrl" :alt="`Driver number ${driver.number || driver.id}`" />
+        <img class="driver-img" :src="driverImageUrl" :alt="`${driver.firstName} ${driver.lastName} image`" />
       </div>
       <div class="driver-name">
         <span class="driver-border-name" :style="{
           'background-color': team.color
         }"></span>
         <h2>
-          {{ driver.first_name }}
+          {{ driver.firstName }}
           <span class="driver-surname">{{ normalizedSurname }}</span>
         </h2>
       </div>

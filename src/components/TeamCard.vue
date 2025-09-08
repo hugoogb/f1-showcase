@@ -10,14 +10,20 @@ interface Props {
 
 const props = defineProps<Props>()
 
-// Generate team car image URL
+// Use team car image from API or generate fallback URL
 const teamCarUrl = computed(() => {
+  if (props.team.imageCar) {
+    return props.team.imageCar
+  }
   const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
   return `/src/assets/imgs/teams/${teamName}_car.png`
 })
 
-// Generate team logo URL
+// Use team logo from API or generate fallback URL
 const teamLogoUrl = computed(() => {
+  if (props.team.logoSmall || props.team.logo) {
+    return props.team.logoSmall || props.team.logo
+  }
   const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
   return `/src/assets/imgs/teams/${teamName}_logo.png`
 })

@@ -1,12 +1,14 @@
 import { ref, computed, type Ref } from 'vue'
-import type { Driver, Session, Team, TeamWithDrivers, ApiError } from '@/types/f1'
+import type { Driver, Team, TeamWithDrivers, ApiError, ApiResponse, Race, Session } from '@/types/f1'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 class F1ApiError extends Error {
-  constructor(message: string, public status?: number) {
+  constructor(message: string, public status?: number, public code?: string) {
     super(message)
     this.name = 'F1ApiError'
+    this.status = status
+    this.code = code
   }
 }
 
@@ -23,19 +25,35 @@ async function fetchWithCache<T>(url: string): Promise<T> {
   }
 
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    
     if (!response.ok) {
-      throw new F1ApiError(`HTTP error! status: ${response.status}`, response.status)
+      throw new F1ApiError(
+        `HTTP error! status: ${response.status}`, 
+        response.status,
+        response.statusText
+      )
     }
     
-    const data = await response.json()
+    const result = await response.json()
+    
+    // Handle your API response format (assuming it might wrap data in a response object)
+    const data = result.data !== undefined ? result.data : result
+    
     cache.set(cacheKey, { data, timestamp: Date.now() })
     return data
   } catch (error) {
     if (error instanceof F1ApiError) {
       throw error
     }
-    throw new F1ApiError(`Failed to fetch data: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    throw new F1ApiError(
+      `Failed to fetch data: ${error instanceof Error ? error.message : 'Unknown error'}`
+    )
   }
 }
 
@@ -53,85 +71,120 @@ export function useF1Api() {
     } catch (err) {
       const apiError: ApiError = {
         message: err instanceof Error ? err.message : 'An unknown error occurred',
-        status: err instanceof F1ApiError ? err.status : undefined
+        status: err instanceof F1ApiError ? err.status : undefined,
+        code: err instanceof F1ApiError ? err.code : undefined
       }
       error.value = apiError
-      console.error('F1 API Error:', apiError)
+      console.error('Custom F1 API Error:', apiError)
       return null
     } finally {
       loading.value = false
     }
   }
 
-  const getLatestSession = async (): Promise<Session | null> => {
-    return handleRequest(async () => {
-      const sessions = await fetchWithCache<Session[]>(`${API_BASE_URL}/sessions?year=2024`)
-      // Get the most recent session
-      return sessions.sort((a, b) => new Date(b.date_start).getTime() - new Date(a.date_start).getTime())[0]
-    })
-  }
-
-  const getDrivers = async (sessionKey?: number): Promise<Driver[]> => {
+  // Get all teams from your custom API
+  const getTeams = async (): Promise<Team[]> => {
     const result = await handleRequest(async () => {
-      const url = sessionKey 
-        ? `${API_BASE_URL}/drivers?session_key=${sessionKey}`
-        : `${API_BASE_URL}/drivers?session_key=latest`
-      return await fetchWithCache<Driver[]>(url)
+      return await fetchWithCache<Team[]>(`${API_BASE_URL}/api/teams`)
     })
     return result || []
   }
 
+  // Get all drivers from your custom API
+  const getDrivers = async (): Promise<Driver[]> => {
+    const result = await handleRequest(async () => {
+      return await fetchWithCache<Driver[]>(`${API_BASE_URL}/api/drivers`)
+    })
+    return result || []
+  }
+
+  // Get teams with their drivers
   const getTeamsWithDrivers = async (): Promise<TeamWithDrivers[]> => {
     const result = await handleRequest(async () => {
-      const drivers = await getDrivers()
-      
-      // Group drivers by team
-      const teamMap = new Map<string, Driver[]>()
-      drivers.forEach(driver => {
-        if (!teamMap.has(driver.team_name)) {
-          teamMap.set(driver.team_name, [])
-        }
-        teamMap.get(driver.team_name)!.push(driver)
-      })
+      const [teams, drivers] = await Promise.all([
+        getTeams(),
+        getDrivers()
+      ])
 
-      // Convert to teams with drivers
-      const teams: TeamWithDrivers[] = []
-      let id = 1
-      
-      teamMap.forEach((teamDrivers, teamName) => {
-        const team: TeamWithDrivers = {
-          id: id++,
-          name: teamName,
-          color: `#${teamDrivers[0].team_colour}`,
-          drivers: teamDrivers.sort((a, b) => a.driver_number - b.driver_number)
-        }
-        teams.push(team)
-      })
+      if (!teams || !drivers) {
+        throw new F1ApiError('Failed to fetch teams or drivers data')
+      }
 
-      return teams.sort((a, b) => a.name.localeCompare(b.name))
+      // Map drivers to their teams
+      const teamsWithDrivers: TeamWithDrivers[] = teams.map(team => ({
+        ...team,
+        drivers: drivers.filter(driver => driver.team === team.name)
+      }))
+
+      return teamsWithDrivers.sort((a, b) => a.name.localeCompare(b.name))
     })
     
     return result || []
   }
 
-  const getSessions = async (year: number = 2024): Promise<Session[]> => {
+  // Get races/sessions (if available in your API)
+  const getRaces = async (): Promise<Race[]> => {
     const result = await handleRequest(async () => {
-      return await fetchWithCache<Session[]>(`${API_BASE_URL}/sessions?year=${year}`)
+      return await fetchWithCache<Race[]>(`${API_BASE_URL}/api/races`)
     })
     return result || []
   }
 
+  // Get sessions (if available in your API)
+  const getSessions = async (): Promise<Session[]> => {
+    const result = await handleRequest(async () => {
+      return await fetchWithCache<Session[]>(`${API_BASE_URL}/api/sessions`)
+    })
+    return result || []
+  }
+
+  // Get specific team by ID
+  const getTeamById = async (id: number): Promise<Team | null> => {
+    const result = await handleRequest(async () => {
+      return await fetchWithCache<Team>(`${API_BASE_URL}/api/teams/${id}`)
+    })
+    return result
+  }
+
+  // Get specific driver by ID
+  const getDriverById = async (id: number): Promise<Driver | null> => {
+    const result = await handleRequest(async () => {
+      return await fetchWithCache<Driver>(`${API_BASE_URL}/api/drivers/${id}`)
+    })
+    return result
+  }
+
+  // Clear cache
   const clearCache = () => {
     cache.clear()
+  }
+
+  // Check API health
+  const checkApiHealth = async (): Promise<boolean> => {
+    const result = await handleRequest(async () => {
+      const response = await fetch(`${API_BASE_URL}/health`)
+      return response.ok
+    })
+    return result || false
   }
 
   return {
     loading: computed(() => loading.value),
     error: computed(() => error.value),
-    getLatestSession,
+    
+    // Main data fetching methods
+    getTeams,
     getDrivers,
     getTeamsWithDrivers,
+    getRaces,
     getSessions,
-    clearCache
+    
+    // Specific item methods
+    getTeamById,
+    getDriverById,
+    
+    // Utility methods
+    clearCache,
+    checkApiHealth
   }
 }

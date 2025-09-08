@@ -10,8 +10,11 @@ interface Props {
 const props = defineProps<Props>()
 const { activeTeamId, setActiveTeam } = useActiveTeam()
 
-// Generate a placeholder logo URL based on team name
+// Use team logo from API or generate fallback URL
 const logoUrl = computed(() => {
+  if (props.team.logo || props.team.logoSmall) {
+    return props.team.logo || props.team.logoSmall
+  }
   const teamName = props.team.name.replace(/\s+/g, '_').toLowerCase()
   return `/src/assets/imgs/teams/${teamName}.png`
 })

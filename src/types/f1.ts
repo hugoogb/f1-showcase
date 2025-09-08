@@ -1,50 +1,81 @@
-export interface Driver {
-  meeting_key: number
-  session_key: number
-  driver_number: number
-  broadcast_name: string
-  full_name: string
-  name_acronym: string
-  team_name: string
-  team_colour: string
-  first_name: string
-  last_name: string
-  headshot_url: string | null
-  country_code: string | null
-}
+// Custom F1 API Data Types (hugoogb/f1-api)
 
-export interface Session {
-  meeting_key: number
-  session_key: number
-  location: string
-  date_start: string
-  date_end: string
-  session_type: string
-  session_name: string
-  country_key: number
-  country_code: string
-  country_name: string
-  circuit_key: number
-  circuit_short_name: string
-  gmt_offset: string
-  year: number
+export interface Driver {
+  id: number
+  firstName: string
+  lastName: string
+  team: string
+  image?: string
+  numberLogo?: string
+  number?: number
+  // Additional properties that might be in your API
+  nationality?: string
+  birthDate?: string
+  points?: number
 }
 
 export interface Team {
   id: number
   name: string
   color: string
-  imageCar?: string
+  logo?: string
   logoSmall?: string
+  imageCar?: string
+  // Additional properties that might be in your API
+  base?: string
+  teamChief?: string
+  technicalChief?: string
+  chassis?: string
+  powerUnit?: string
+  firstTeamEntry?: number
+  worldChampionships?: number
+  highestRaceFinish?: string
+  polePositions?: number
+  fastestLaps?: number
 }
 
 export interface TeamWithDrivers extends Team {
   drivers: Driver[]
 }
 
+// Race and session related types
+export interface Race {
+  id: number
+  name: string
+  location: string
+  country: string
+  date: string
+  circuit?: Circuit
+}
+
+export interface Circuit {
+  id: number
+  name: string
+  location: string
+  country: string
+  length?: number
+  turns?: number
+  lapRecord?: string
+}
+
+export interface Session {
+  id: number
+  name: string
+  type: SessionType
+  date: string
+  raceId: number
+}
+
 export interface ApiError {
   message: string
   status?: number
+  code?: string
 }
 
-export type SessionType = 'Practice' | 'Qualifying' | 'Sprint' | 'Race'
+export interface ApiResponse<T> {
+  data: T
+  success: boolean
+  message?: string
+}
+
+export type SessionType = 'Practice' | 'Qualifying' | 'Sprint' | 'Race' | 'Practice 1' | 'Practice 2' | 'Practice 3'
