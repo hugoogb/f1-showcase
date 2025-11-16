@@ -38,44 +38,8 @@ export interface TeamWithDrivers extends Team {
   drivers: Driver[]
 }
 
-// Race and session related types
-export interface Race {
-  id: number
-  name: string
-  location: string
-  country: string
-  date: string
-  circuit?: Circuit
-}
-
-export interface Circuit {
-  id: number
-  name: string
-  location: string
-  country: string
-  length?: number
-  turns?: number
-  lapRecord?: string
-}
-
-export interface Session {
-  id: number
-  name: string
-  type: SessionType
-  date: string
-  raceId: number
-}
-
 export interface ApiError {
   message: string
   status?: number
   code?: string
 }
-
-export interface ApiResponse<T> {
-  data: T
-  success: boolean
-  message?: string
-}
-
-export type SessionType = 'Practice' | 'Qualifying' | 'Sprint' | 'Race' | 'Practice 1' | 'Practice 2' | 'Practice 3'

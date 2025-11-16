@@ -2,45 +2,6 @@
  * Image optimization utilities for F1 Showcase
  */
 
-export interface ImageOptions {
-  width?: number
-  height?: number
-  quality?: number
-  format?: 'webp' | 'avif' | 'png' | 'jpg'
-}
-
-/**
- * Creates optimized image URLs with fallbacks
- */
-export function createImageUrl(basePath: string, options: ImageOptions = {}): string {
-  const { width, height, quality = 80, format = 'avif' } = options
-  
-  let url = basePath
-  
-  // Add format extension if not present
-  if (!basePath.includes('.')) {
-    url += `.${format}`
-  }
-  
-  return url
-}
-
-/**
- * Preloads critical images for better performance
- */
-export function preloadImages(urls: string[]): Promise<void[]> {
-  const promises = urls.map(url => {
-    return new Promise<void>((resolve, reject) => {
-      const img = new Image()
-      img.onload = () => resolve()
-      img.onerror = () => reject(new Error(`Failed to load image: ${url}`))
-      img.src = url
-    })
-  })
-  
-  return Promise.all(promises)
-}
-
 /**
  * Lazy loading intersection observer
  */
@@ -50,7 +11,7 @@ export function createLazyImageObserver(callback: (entry: IntersectionObserverEn
     rootMargin: '50px',
     threshold: 0.1
   }
-  
+
   return new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -65,7 +26,7 @@ export function createLazyImageObserver(callback: (entry: IntersectionObserverEn
  */
 export function handleImageError(event: Event, fallbackUrl?: string): void {
   const img = event.target as HTMLImageElement
-  
+
   if (fallbackUrl && img.src !== fallbackUrl) {
     img.src = fallbackUrl
   } else {

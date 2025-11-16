@@ -11,7 +11,7 @@ const props = defineProps<Props>()
 
 <template>
   <div class="team-drivers">
-    <DriverCard v-for="driver in team.drivers" :key="driver.driver_number" :driver="driver" :team="team" />
+    <DriverCard v-for="driver in team.drivers" :key="driver.id" :driver="driver" :team="team" />
   </div>
 </template>
 
