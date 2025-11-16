@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TeamListItem from './TeamListItem.vue'
-import TeamListItemSkeleton from './skeletons/TeamListItemSkeleton.vue'
 import { useActiveTeam } from '@/composables/useActiveTeam'
 
 const { teams } = useActiveTeam()
@@ -10,15 +9,7 @@ const { teams } = useActiveTeam()
   <div class="team-selector">
     <ul>
       <template v-for="team in teams" :key="team.id">
-        <Suspense>
-          <!-- component with nested async dependencies -->
-          <TeamListItem :team="team" />
-
-          <!-- loading state via #fallback slot -->
-          <template #fallback>
-            <TeamListItemSkeleton />
-          </template>
-        </Suspense>
+        <TeamListItem :team="team" />
       </template>
     </ul>
   </div>

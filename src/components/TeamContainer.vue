@@ -1,32 +1,30 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { watch, onMounted } from 'vue'
 import TeamSelectorList from './TeamSelectorList.vue'
 import TeamShowcase from './TeamShowcase.vue'
-import { useF1Api } from '@/composables/useF1Api'
+import { useF1Data } from '@/composables/useF1Data'
 import { useActiveTeam } from '@/composables/useActiveTeam'
 
-const { loading, error, getTeamsWithDrivers, clearError, clearCache } = useF1Api()
+const { loading, teamsWithDrivers } = useF1Data()
 const { getBackgroundStyle, setTeams, initializeFromStorage } = useActiveTeam()
 
-const loadTeams = async () => {
-  clearError()
-  clearCache() // Clear cache on retry to ensure fresh data
-  const teamsData = await getTeamsWithDrivers()
-  if (teamsData.length > 0) {
-    setTeams(teamsData)
+// Function to update teams
+const updateTeams = () => {
+  const teams = teamsWithDrivers.value
+  if (teams && teams.length > 0) {
+    setTeams(teams)
     initializeFromStorage()
+  } else {
+    console.warn('No teams data available')
   }
 }
 
-onMounted(() => {
-  loadTeams()
-})
+// Watch for when data is loaded and update active team state
+watch(teamsWithDrivers, updateTeams, { immediate: true })
 
-// Watch for errors and log them
-watch(error, (newError) => {
-  if (newError) {
-    console.error('Team Container Error:', newError)
-  }
+// Also update on mount to ensure it happens
+onMounted(() => {
+  updateTeams()
 })
 </script>
 
@@ -34,19 +32,6 @@ watch(error, (newError) => {
   <div class="wrapper" :style="getBackgroundStyle">
     <div v-if="loading" class="loading">
       <p>Loading F1 data...</p>
-    </div>
-    <div v-else-if="error" class="error">
-      <div class="error-content">
-        <h2>Error Loading F1 Data</h2>
-        <p class="error-message">{{ error.message }}</p>
-        <p v-if="error.status" class="error-status">Status Code: {{ error.status }}</p>
-        <p class="error-hint">
-          Make sure your API server is running and the <code>VITE_API_BASE_URL</code> environment variable is correctly configured.
-        </p>
-      </div>
-      <button @click="loadTeams" class="retry-btn" :disabled="loading">
-        {{ loading ? 'Retrying...' : 'Retry' }}
-      </button>
     </div>
     <template v-else>
       <TeamSelectorList />
@@ -71,7 +56,7 @@ watch(error, (newError) => {
   transition: background-color 0.3s ease;
 }
 
-.loading, .error {
+.loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,66 +72,15 @@ watch(error, (newError) => {
   animation: pulse 2s infinite;
 }
 
-.error-content {
-  max-width: 600px;
-  margin-bottom: 2rem;
-}
-
-.error-content h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #ff6b6b;
-}
-
-.error-message {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #ff6b6b;
-  word-break: break-word;
-}
-
-.error-status {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  color: #ffa8a8;
-}
-
-.error-hint {
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  color: #ccc;
-  line-height: 1.5;
-}
-
-.error-hint code {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.25rem;
-  font-family: 'Courier New', monospace;
-}
-
-.retry-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.retry-btn:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.retry-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 </style>
