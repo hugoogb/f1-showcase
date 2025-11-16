@@ -38,6 +38,48 @@ class F1ApiError extends Error {
 const cache = new Map<string, { data: any; timestamp: number }>()
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
+/**
+ * Detects if an error is a CORS error
+ */
+function isCorsError(error: unknown): boolean {
+  if (error instanceof TypeError) {
+    const message = error.message.toLowerCase()
+    return (
+      message.includes('cors') ||
+      message.includes('cross-origin') ||
+      message.includes('networkerror') ||
+      message.includes('failed to fetch') ||
+      message.includes('network request failed')
+    )
+  }
+  return false
+}
+
+/**
+ * Creates a user-friendly error message with context
+ */
+function createErrorMessage(error: unknown, url: string): string {
+  if (error instanceof F1ApiError) {
+    return error.message
+  }
+
+  if (isCorsError(error)) {
+    return `CORS Error: The API at ${url} is not allowing requests from this origin. ` +
+      `Please check your API CORS configuration to allow requests from ${window.location.origin}`
+  }
+
+  if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+    return `Network Error: Unable to connect to ${url}. ` +
+      `Please check if the API server is running and accessible.`
+  }
+
+  if (error instanceof Error) {
+    return error.message
+  }
+
+  return 'An unknown error occurred while fetching data'
+}
+
 async function fetchWithCache<T>(url: string): Promise<T> {
   const cacheKey = url
   const cached = cache.get(cacheKey)
@@ -56,7 +98,7 @@ async function fetchWithCache<T>(url: string): Promise<T> {
 
     if (!response.ok) {
       throw new F1ApiError(
-        `HTTP error! status: ${response.status}`,
+        `HTTP ${response.status}: ${response.statusText || 'Server error'}`,
         response.status,
         response.statusText
       )
@@ -73,9 +115,10 @@ async function fetchWithCache<T>(url: string): Promise<T> {
     if (error instanceof F1ApiError) {
       throw error
     }
-    throw new F1ApiError(
-      `Failed to fetch data: ${error instanceof Error ? error.message : 'Unknown error'}`
-    )
+
+    // Create a more informative error message
+    const errorMessage = createErrorMessage(error, url)
+    throw new F1ApiError(errorMessage)
   }
 }
 
@@ -97,11 +140,21 @@ export function useF1Api() {
         code: err instanceof F1ApiError ? err.code : undefined
       }
       error.value = apiError
-      console.error('Custom F1 API Error:', apiError)
+      console.error('F1 API Error:', apiError)
       return null
     } finally {
       loading.value = false
     }
+  }
+
+  // Clear error state
+  const clearError = () => {
+    error.value = null
+  }
+
+  // Clear cache (useful for retrying after errors)
+  const clearCache = () => {
+    cache.clear()
   }
 
   // Get all teams from your custom API
@@ -149,6 +202,10 @@ export function useF1Api() {
     error: computed(() => error.value),
 
     // Main data fetching methods
-    getTeamsWithDrivers
+    getTeamsWithDrivers,
+
+    // Utility methods
+    clearError,
+    clearCache
   }
 }
