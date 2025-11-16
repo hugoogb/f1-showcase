@@ -5,15 +5,21 @@ import TeamShowcase from './TeamShowcase.vue'
 import { useF1Api } from '@/composables/useF1Api'
 import { useActiveTeam } from '@/composables/useActiveTeam'
 
-const { loading, error, getTeamsWithDrivers } = useF1Api()
+const { loading, error, getTeamsWithDrivers, clearError, clearCache } = useF1Api()
 const { getBackgroundStyle, setTeams, initializeFromStorage } = useActiveTeam()
 
-onMounted(async () => {
+const loadTeams = async () => {
+  clearError()
+  clearCache() // Clear cache on retry to ensure fresh data
   const teamsData = await getTeamsWithDrivers()
   if (teamsData.length > 0) {
     setTeams(teamsData)
     initializeFromStorage()
   }
+}
+
+onMounted(() => {
+  loadTeams()
 })
 
 // Watch for errors and log them
@@ -30,8 +36,17 @@ watch(error, (newError) => {
       <p>Loading F1 data...</p>
     </div>
     <div v-else-if="error" class="error">
-      <p>Error loading data: {{ error.message }}</p>
-      <button @click="$router.go(0)" class="retry-btn">Retry</button>
+      <div class="error-content">
+        <h2>Error Loading F1 Data</h2>
+        <p class="error-message">{{ error.message }}</p>
+        <p v-if="error.status" class="error-status">Status Code: {{ error.status }}</p>
+        <p class="error-hint">
+          Make sure your API server is running and the <code>VITE_API_BASE_URL</code> environment variable is correctly configured.
+        </p>
+      </div>
+      <button @click="loadTeams" class="retry-btn" :disabled="loading">
+        {{ loading ? 'Retrying...' : 'Retry' }}
+      </button>
     </div>
     <template v-else>
       <TeamSelectorList />
@@ -72,10 +87,42 @@ watch(error, (newError) => {
   animation: pulse 2s infinite;
 }
 
-.error p {
-  font-size: 1.2rem;
+.error-content {
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.error-content h2 {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #ff6b6b;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #ff6b6b;
+  word-break: break-word;
+}
+
+.error-status {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: #ffa8a8;
+}
+
+.error-hint {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.error-hint code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
 }
 
 .retry-btn {
@@ -89,8 +136,13 @@ watch(error, (newError) => {
   transition: background-color 0.3s ease;
 }
 
-.retry-btn:hover {
+.retry-btn:hover:not(:disabled) {
   background-color: #0056b3;
+}
+
+.retry-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @keyframes pulse {
