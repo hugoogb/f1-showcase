@@ -8,6 +8,9 @@ const { activeTeam } = useActiveTeam()
 <template>
   <div class="teams-container">
     <TeamCard v-if="activeTeam" :team="activeTeam" />
+    <div v-else class="no-team-message">
+      <p>Select a team to view details</p>
+    </div>
   </div>
 </template>
 
@@ -17,5 +20,11 @@ const { activeTeam } = useActiveTeam()
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.no-team-message {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
 }
 </style>

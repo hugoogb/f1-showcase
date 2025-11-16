@@ -1,4 +1,8 @@
-// Custom F1 API Data Types (hugoogb/f1-api)
+/**
+ * F1 2023 Showcase - Data Types
+ * 
+ * Types for F1 2023 showcase application using local data files.
+ */
 
 export interface Driver {
   id: number
@@ -8,7 +12,6 @@ export interface Driver {
   image?: string
   numberLogo?: string
   number?: number
-  // Additional properties that might be in your API
   nationality?: string
   birthDate?: string
   points?: number
@@ -21,7 +24,6 @@ export interface Team {
   logo?: string
   logoSmall?: string
   imageCar?: string
-  // Additional properties that might be in your API
   base?: string
   teamChief?: string
   technicalChief?: string
@@ -36,10 +38,4 @@ export interface Team {
 
 export interface TeamWithDrivers extends Team {
   drivers: Driver[]
-}
-
-export interface ApiError {
-  message: string
-  status?: number
-  code?: string
 }

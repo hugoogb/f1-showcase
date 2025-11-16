@@ -1,17 +1,10 @@
 <script setup>
 import TeamContainer from './TeamContainer.vue'
-import TeamContainerSkeleton from './skeletons/TeamContainerSkeleton.vue'
 </script>
 
 <template>
   <main>
-    <Suspense>
-      <!-- component with nested async dependencies -->
-      <TeamContainer />
-
-      <!-- loading state via #fallback slot -->
-      <template #fallback><TeamContainerSkeleton /></template>
-    </Suspense>
+    <TeamContainer />
   </main>
 </template>
 
